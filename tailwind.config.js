@@ -8,33 +8,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Couleurs brique toulousaine - ROUGE ULTRA VIF
-        brick: {
-          50: '#FFE5E5',
-          100: '#FFCCCC',
-          200: '#FF9999',
-          300: '#FF6666',
-          400: '#FF3333',
-          500: '#FF0000', // Principal - ROUGE PUR ÉCLATANT
-          600: '#CC0000',
-          700: '#990000', // Foncé - ROUGE FONCÉ
-          800: '#660000',
-          900: '#330000',
+        // Palette olive sophistiquée et apaisante
+        olive: {
+          50: '#F7F8F5',   // Très clair, presque blanc avec une touche d'olive
+          100: '#EBEEE6',  // Gris-vert très doux
+          200: '#D4D9CA',  // Sauge claire
+          300: '#B8C1A5',  // Vert sauge doux
+          400: '#97A47E',  // Olive moyen
+          500: '#7A8A5E',  // Olive principal - sophistiqué
+          600: '#5F6E47',  // Olive foncé élégant
+          700: '#4A5538',  // Vert olive profond
+          800: '#3A432B',  // Très foncé, presque noir-vert
+          900: '#2A311F',  // Noir-olive pour les textes
         },
-        // Vert nature - VERT ULTRA VIF
-        forest: {
-          50: '#E5FFE5',
-          100: '#CCFFCC',
-          200: '#99FF99',
-          300: '#66FF66',
-          400: '#33FF33',
-          500: '#00CC00', // Principal - VERT PUR ÉCLATANT
-          600: '#009900',
-          700: '#006600', // Foncé - VERT FONCÉ
-          800: '#004400',
-          900: '#002200',
-        },
-        // Neutres chaleureux
+        // Neutres chaleureux - conservés
         warm: {
           50: '#FDFCFB',
           100: '#F9F7F4',
@@ -47,6 +34,9 @@ module.exports = {
           800: '#5C5042',
           900: '#3E3730',
         },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
     },
   },
