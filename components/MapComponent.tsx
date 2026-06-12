@@ -20,24 +20,40 @@ interface MapComponentProps {
   compact?: boolean;
 }
 
-// Fonction pour créer une icône de personne avec couleur moderne
+// Fonction pour créer une icône moderne style Google Maps
 function createPersonIcon(color: string) {
   const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 42" fill="none" width="40" height="52">
-      <!-- Pin moderne avec ombre -->
-      <g filter="url(#shadow)">
-        <path d="M16 0C7.2 0 0 7.2 0 16c0 8.8 16 26 16 26s16-17.2 16-26C32 7.2 24.8 0 16 0z"
-              fill="${color}"/>
-      </g>
-      <!-- Cercle intérieur blanc -->
-      <circle cx="16" cy="16" r="11" fill="white" opacity="0.95"/>
-      <!-- Icône de personne -->
-      <path d="M16 11c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3zm0 10c2 0 6 1 6 3v1H10v-1c0-2 4-3 6-3z"
-            fill="${color}"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 48" fill="none" width="45" height="60">
       <defs>
-        <filter id="shadow" x="-2" y="-2" width="36" height="46">
-          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+        <filter id="shadow-${color}" x="-4" y="-4" width="44" height="56">
+          <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.4"/>
         </filter>
+      </defs>
+
+      <!-- Pin principal avec gradient -->
+      <g filter="url(#shadow-${color})">
+        <path d="M18 0C8.1 0 0 8.1 0 18c0 13.5 18 30 18 30s18-16.5 18-30C36 8.1 27.9 0 18 0z"
+              fill="${color}"/>
+        <path d="M18 2C9.2 2 2 9.2 2 18c0 12 16 27 16 27s16-15 16-27C34 9.2 26.8 2 18 2z"
+              fill="url(#grad-${color})"/>
+      </g>
+
+      <!-- Cercle blanc intérieur plus grand -->
+      <circle cx="18" cy="18" r="12" fill="white" opacity="0.98"/>
+
+      <!-- Icône maison moderne -->
+      <g transform="translate(18, 18)">
+        <path d="M-6 -3L0 -7L6 -3V5H-6V-3Z" fill="${color}" opacity="0.9"/>
+        <rect x="-2" y="0" width="4" height="5" fill="${color}"/>
+        <rect x="-5" y="-1" width="2.5" height="2.5" fill="white" opacity="0.7"/>
+        <rect x="2.5" y="-1" width="2.5" height="2.5" fill="white" opacity="0.7"/>
+      </g>
+
+      <defs>
+        <linearGradient id="grad-${color}" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:${color};stop-opacity:1" />
+          <stop offset="100%" style="stop-color:${color};stop-opacity:0.85" />
+        </linearGradient>
       </defs>
     </svg>
   `;
@@ -45,9 +61,9 @@ function createPersonIcon(color: string) {
   return L.divIcon({
     html: svg,
     className: 'custom-marker-modern',
-    iconSize: [40, 52],
-    iconAnchor: [20, 52],
-    popupAnchor: [0, -52],
+    iconSize: [45, 60],
+    iconAnchor: [22.5, 60],
+    popupAnchor: [0, -60],
   });
 }
 

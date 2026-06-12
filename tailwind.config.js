@@ -8,31 +8,31 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Couleurs brique toulousaine
+        // Couleurs brique toulousaine - RENFORCÉES
         brick: {
-          50: '#FDF4F4',
-          100: '#FCE8E9',
-          200: '#F9D5D7',
-          300: '#F4B5B9',
-          400: '#EC8A91',
-          500: '#C1666B', // Principal
-          600: '#A54E53',
-          700: '#8B3A3A', // Foncé
-          800: '#6B2D2D',
-          900: '#4D2020',
+          50: '#FEF2F2',
+          100: '#FEE2E2',
+          200: '#FDC8CA',
+          300: '#FCA5A8',
+          400: '#F87171',
+          500: '#DC2626', // Principal - ROUGE VIF
+          600: '#B91C1C',
+          700: '#991B1B', // Foncé - ROUGE PROFOND
+          800: '#7F1D1D',
+          900: '#5C1414',
         },
-        // Vert nature
+        // Vert nature - RENFORCÉ
         forest: {
-          50: '#F2F8F3',
-          100: '#E0F0E1',
-          200: '#C2E1C4',
-          300: '#9DCD9F',
-          400: '#6FB874',
-          500: '#48A14D', // Principal
-          600: '#3A8740',
-          700: '#2D6930', // Foncé
-          800: '#235227',
-          900: '#1A3D1D',
+          50: '#F0FDF4',
+          100: '#DCFCE7',
+          200: '#BBF7D0',
+          300: '#86EFAC',
+          400: '#4ADE80',
+          500: '#16A34A', // Principal - VERT VIF
+          600: '#15803D',
+          700: '#166534', // Foncé - VERT PROFOND
+          800: '#14532D',
+          900: '#0F3A21',
         },
         // Neutres chaleureux
         warm: {

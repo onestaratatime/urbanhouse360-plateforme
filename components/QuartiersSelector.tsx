@@ -30,32 +30,32 @@ export default function QuartiersSelector({ selectedQuartiers, onChange }: Quart
   return (
     <div className="space-y-3">
       {Object.entries(QUARTIERS_PAR_SECTEUR).map(([secteur, quartiers]) => (
-        <div key={secteur} className="border border-gray-200 rounded-lg overflow-hidden">
+        <div key={secteur} className="border-2 border-warm-300 rounded-lg overflow-hidden">
           <button
             type="button"
             onClick={() => toggleSecteur(secteur)}
-            className="w-full px-4 py-3 bg-gray-50 hover:bg-gray-100 flex justify-between items-center text-left font-medium"
+            className="w-full px-4 py-3 bg-warm-100 hover:bg-warm-200 flex justify-between items-center text-left font-medium text-gray-900 transition-colors"
           >
             <span>{secteur}</span>
-            <span className="text-gray-500">
+            <span className="text-brick-600 text-xl font-bold">
               {expandedSecteurs.includes(secteur) ? '−' : '+'}
             </span>
           </button>
 
           {expandedSecteurs.includes(secteur) && (
-            <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-2 bg-white">
               {quartiers.map(quartier => (
                 <label
                   key={quartier.slug}
-                  className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                  className="flex items-center space-x-2 cursor-pointer hover:bg-warm-50 p-2 rounded transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={selectedQuartiers.includes(quartier.slug)}
                     onChange={() => toggleQuartier(quartier.slug)}
-                    className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                    className="w-4 h-4 text-brick-600 rounded focus:ring-2 focus:ring-brick-500 border-warm-400"
                   />
-                  <span className="text-sm">{quartier.nom}</span>
+                  <span className="text-sm text-gray-800">{quartier.nom}</span>
                 </label>
               ))}
             </div>
@@ -64,9 +64,9 @@ export default function QuartiersSelector({ selectedQuartiers, onChange }: Quart
       ))}
 
       {selectedQuartiers.length > 0 && (
-        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-          <p className="text-sm font-medium text-blue-900 mb-2">
-            Quartiers sélectionnés ({selectedQuartiers.length}) :
+        <div className="mt-4 p-4 bg-forest-50 rounded-lg border-2 border-forest-200">
+          <p className="text-sm font-bold text-forest-900 mb-3">
+            ✓ Quartiers sélectionnés ({selectedQuartiers.length}) :
           </p>
           <div className="flex flex-wrap gap-2">
             {selectedQuartiers.map(slug => {
@@ -76,13 +76,13 @@ export default function QuartiersSelector({ selectedQuartiers, onChange }: Quart
               return quartier ? (
                 <span
                   key={slug}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-white rounded-full text-sm border border-blue-200"
+                  className="inline-flex items-center gap-1 px-3 py-1 bg-white rounded-full text-sm border-2 border-forest-300 text-forest-900 font-medium"
                 >
                   {quartier.nom}
                   <button
                     type="button"
                     onClick={() => toggleQuartier(slug)}
-                    className="text-blue-600 hover:text-blue-800 font-bold"
+                    className="text-brick-600 hover:text-brick-700 font-bold text-lg ml-1"
                   >
                     ×
                   </button>
