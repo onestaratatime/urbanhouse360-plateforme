@@ -27,13 +27,13 @@ export default async function Home() {
     <div className="min-h-screen bg-white">
       {/* Navigation minimaliste */}
       <nav className="absolute top-0 left-0 right-0 z-[2000] bg-white/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
-          <div className="text-2xl font-light tracking-wide text-olive-700">
+        <div className="max-w-7xl mx-auto px-8 py-3 flex justify-between items-center">
+          <div className="text-xl font-light tracking-wide text-olive-700">
             UrbanHouse360
           </div>
           <Link
             href="/inscription"
-            className="px-8 py-3 bg-olive-600 text-white rounded-full hover:bg-olive-700 transition-all duration-300 font-light tracking-wide"
+            className="px-6 py-2 bg-olive-600 text-white rounded-full hover:bg-olive-700 transition-all duration-300 font-light tracking-wide text-sm"
           >
             Je dépose ma recherche
           </Link>
@@ -51,15 +51,15 @@ export default async function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-olive-900/10 z-10"></div>
 
         {/* Encart élégant à gauche */}
-        <div className="relative z-[1000] h-full flex items-center px-8 lg:px-16 pb-24">
-          <div className="max-w-md bg-white/95 backdrop-blur-sm p-8 pb-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
+        <div className="relative z-[1000] h-full flex items-center px-8 lg:px-16 pt-24 pb-28">
+          <div className="max-w-md bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
             {/* Titre accrocheur */}
-            <h1 className="text-3xl font-light text-olive-800 mb-6 leading-tight">
+            <h1 className="text-3xl font-light text-olive-800 mb-4 leading-tight">
               Trouvez votre lieu de vie idéal à Toulouse et sa région
             </h1>
 
             {/* Les 3 étapes avec un design épuré */}
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 mb-6">
               <div className="flex items-start space-x-3">
                 <div className="w-7 h-7 rounded-full bg-olive-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-olive-600 text-xs font-medium">1</span>
@@ -97,8 +97,8 @@ export default async function Home() {
             </Link>
 
             {/* Statistiques avec timing du projet */}
-            <div className="mt-6 pt-6 border-t border-olive-100">
-              <div className="text-center space-y-3">
+            <div className="mt-4 pt-4 border-t border-olive-100">
+              <div className="text-center space-y-2">
                 <div className="flex justify-center space-x-4 text-xs text-olive-600">
                   <span className="font-light">
                     <span className="font-normal">{acquereurs.length}</span> acquéreurs
@@ -110,12 +110,12 @@ export default async function Home() {
                   <span className="text-olive-300">•</span>
                   <span className="font-light">100% gratuit</span>
                 </div>
-                <div className="flex flex-col gap-2 text-xs">
-                  <div className="text-olive-600 font-light text-[10px] uppercase tracking-wide mb-1">Timing projet</div>
+                <div className="flex flex-col gap-1.5 text-xs">
+                  <div className="text-olive-600 font-light text-[10px] uppercase tracking-wide">Timing projet</div>
                   <div className="flex justify-center gap-2">
-                    <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full">Immédiat</span>
-                    <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-full">6-12 mois</span>
-                    <span className="px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">1 an+</span>
+                    <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-[10px]">Immédiat</span>
+                    <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-[10px]">6-12 mois</span>
+                    <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-[10px]">1 an+</span>
                   </div>
                 </div>
               </div>
