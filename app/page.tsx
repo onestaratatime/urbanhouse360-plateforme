@@ -98,7 +98,7 @@ export default async function Home() {
 
             {/* Statistiques avec timing du projet */}
             <div className="mt-6 pt-6 border-t border-olive-100">
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-3">
                 <div className="flex justify-center space-x-4 text-xs text-olive-600">
                   <span className="font-light">
                     <span className="font-normal">{acquereurs.length}</span> acquéreurs
@@ -110,10 +110,13 @@ export default async function Home() {
                   <span className="text-olive-300">•</span>
                   <span className="font-light">100% gratuit</span>
                 </div>
-                <div className="flex justify-center gap-2 text-xs">
-                  <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full">Immédiat</span>
-                  <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-full">6 mois</span>
-                  <span className="px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">1 an+</span>
+                <div className="flex flex-col gap-2 text-xs">
+                  <div className="text-olive-600 font-light text-[10px] uppercase tracking-wide mb-1">Timing projet</div>
+                  <div className="flex justify-center gap-2">
+                    <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full">Immédiat</span>
+                    <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-full">6-12 mois</span>
+                    <span className="px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">1 an+</span>
+                  </div>
                 </div>
               </div>
             </div>

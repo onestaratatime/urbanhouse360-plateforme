@@ -123,15 +123,15 @@ export const TYPE_PROJET_LABELS: Record<TypeProjet, string> = {
 };
 
 export const TIMING_LABELS: Record<Timing, string> = {
-  court_terme: 'Court terme (moins de 6 mois)',
-  moyen_terme: 'Moyen terme (6 à 18 mois)',
-  long_terme: 'Long terme (plus de 18 mois)'
+  court_terme: 'Immédiat',
+  moyen_terme: '6-12 mois',
+  long_terme: '1 an+'
 };
 
 export const TIMING_COLORS: Record<Timing, string> = {
-  court_terme: '#ef4444', // rouge
-  moyen_terme: '#f59e0b', // orange
-  long_terme: '#10b981'   // vert
+  court_terme: '#f87171', // rouge pastel (red-400)
+  moyen_terme: '#fbbf24', // jaune pastel (amber-400)
+  long_terme: '#34d399'   // vert pastel (emerald-400)
 };
 
 export const TYPE_BIEN_LABELS: Record<TypeBien, string> = {
