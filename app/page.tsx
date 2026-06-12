@@ -43,30 +43,30 @@ export default async function Home() {
   const nbQuartiers = new Set(acquereurs.flatMap(a => a.quartiers)).size;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-warm-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-warm-50 to-white">
+      <section className="bg-gradient-to-br from-brick-100 via-warm-50 to-white">
         <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-brick-700 mb-6">
               Votre future maison vous cherche aussi
             </h1>
-            <p className="text-xl md:text-2xl text-warm-800 mb-8">
+            <p className="text-xl md:text-2xl text-gray-800 mb-8">
               Inscrivez votre recherche, apparaissez anonymement sur la carte, et recevez des biens
               correspondant à vos critères avant tout le monde
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/inscription"
-                className="px-8 py-4 bg-brick-500 text-white rounded-lg hover:bg-brick-600 font-medium text-lg shadow-lg hover:shadow-xl transition-all"
+                className="px-10 py-5 bg-brick-500 text-white rounded-xl hover:bg-brick-600 font-bold text-xl shadow-2xl hover:shadow-3xl transition-all transform hover:scale-105 border-4 border-brick-700"
               >
-                Je m'inscris gratuitement
+                🏠 Je m'inscris gratuitement
               </Link>
               <Link
                 href="/carte"
-                className="px-8 py-4 border-2 border-forest-500 text-forest-700 rounded-lg hover:bg-forest-50 font-medium text-lg transition-all"
+                className="px-10 py-5 bg-forest-500 text-white rounded-xl hover:bg-forest-600 font-bold text-xl shadow-2xl hover:shadow-3xl transition-all transform hover:scale-105 border-4 border-forest-700"
               >
-                Voir la carte des acquéreurs
+                🗺️ Voir la carte des acquéreurs
               </Link>
             </div>
           </div>
