@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export', // Pour générer un site statique compatible Netlify
+  images: {
+    unoptimized: true, // Nécessaire pour l'export statique
+  },
 };
 
 export default nextConfig;
