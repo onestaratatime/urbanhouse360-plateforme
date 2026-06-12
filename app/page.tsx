@@ -17,7 +17,7 @@ async function getAcquereurs(): Promise<AcquereurPublic[]> {
   return data || [];
 }
 
-export const revalidate = 60;
+export const revalidate = 60; // ISR cache
 
 export default async function Home() {
   const acquereurs = await getAcquereurs();
