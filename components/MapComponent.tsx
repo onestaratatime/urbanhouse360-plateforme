@@ -245,15 +245,15 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
         <div className="space-y-2 text-xs">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.court_terme }} />
-            <span className="text-warm-900">Court terme (&lt; 6 mois)</span>
+            <span className="text-warm-900">Immédiat</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.moyen_terme }} />
-            <span className="text-warm-900">Moyen terme (6-18 mois)</span>
+            <span className="text-warm-900">6-12 mois</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.long_terme }} />
-            <span className="text-warm-900">Long terme (&gt; 18 mois)</span>
+            <span className="text-warm-900">1 an+</span>
           </div>
         </div>
       </div>
