@@ -4,6 +4,7 @@ export type TypeProjet = 'residence_principale' | 'residence_secondaire' | 'inve
 export type Timing = 'court_terme' | 'moyen_terme' | 'long_terme';
 export type TypeBien = 'appartement' | 'maison';
 export type Source = 'direct' | 'agence';
+export type Profil = 'personne_seule' | 'couple' | 'famille' | 'famille_nombreuse' | 'investisseur' | 'residence_secondaire';
 
 export type CritereIndispensable =
   | 'terrasse'
@@ -37,6 +38,7 @@ export interface AcquereurComplet {
   type_projet: TypeProjet;
   timing: Timing;
   types_bien: TypeBien[];
+  profil: Profil;
 
   // Critères
   surface_min?: number;
@@ -62,6 +64,7 @@ export interface AcquereurPublic {
   type_projet: TypeProjet;
   timing: Timing;
   types_bien: TypeBien[];
+  profil: Profil;
 
   // Critères
   surface_min?: number;
@@ -103,6 +106,7 @@ export interface FormulaireInscription {
   type_projet: TypeProjet;
   timing: Timing;
   types_bien: TypeBien[];
+  profil: Profil;
 
   // Critères
   surface_min?: number;
@@ -158,3 +162,21 @@ export const PIECES_OPTIONS = [
   { value: 5, label: 'T5' },
   { value: 6, label: 'T6+' }
 ];
+
+export const PROFIL_LABELS: Record<Profil, string> = {
+  personne_seule: 'Seul',
+  couple: 'Couple',
+  famille: 'Famille (1-2 enfants)',
+  famille_nombreuse: 'Famille (3+)',
+  investisseur: 'Investisseur',
+  residence_secondaire: 'Résidence secondaire'
+};
+
+export const PROFIL_EMOJIS: Record<Profil, string> = {
+  personne_seule: '👤',
+  couple: '👥',
+  famille: '👨‍👩‍👧',
+  famille_nombreuse: '👨‍👩‍👧‍👦',
+  investisseur: '💰',
+  residence_secondaire: '🏖️'
+};

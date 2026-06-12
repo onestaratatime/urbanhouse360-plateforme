@@ -55,7 +55,7 @@ export default async function Home() {
           <div className="max-w-md bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
             {/* Titre accrocheur */}
             <h1 className="text-3xl font-light text-olive-800 mb-4 leading-tight">
-              Trouvez votre lieu de vie idéal sur Toulouse et sa région
+              Trouvez votre bien idéal sur Toulouse et sa région
             </h1>
 
             {/* Les 3 étapes avec un design épuré */}
@@ -65,7 +65,7 @@ export default async function Home() {
                   <span className="text-olive-600 text-xs font-medium">1</span>
                 </div>
                 <p className="text-olive-700 font-light leading-relaxed text-sm">
-                  Indiquez vos quartiers de rêve, votre type de bien et budget
+                  Indiquez vos quartiers de rêve, votre type de bien, votre budget et vos critères préférés
                 </p>
               </div>
 
@@ -74,7 +74,7 @@ export default async function Home() {
                   <span className="text-olive-600 text-xs font-medium">2</span>
                 </div>
                 <p className="text-olive-700 font-light leading-relaxed text-sm">
-                  Votre recherche devient visible, votre profil reste privé
+                  Votre recherche devient visible pour les propriétaires du quartier, votre profil reste privé
                 </p>
               </div>
 
@@ -83,7 +83,7 @@ export default async function Home() {
                   <span className="text-olive-600 text-xs font-medium">3</span>
                 </div>
                 <p className="text-olive-700 font-light leading-relaxed text-sm">
-                  Nous vous envoyons des infos sur les biens qui matchent
+                  Nous vous envoyons des informations sur les biens qui matchent avec votre recherche
                 </p>
               </div>
             </div>
@@ -132,11 +132,11 @@ export default async function Home() {
               © 2026 UrbanHouse - Toulouse et sa région
             </p>
             <div className="flex space-x-8 text-sm">
-              <Link href="/carte" className="text-olive-600 hover:text-olive-800 transition-colors font-light">
-                Carte
-              </Link>
               <Link href="/inscription" className="text-olive-600 hover:text-olive-800 transition-colors font-light">
-                Je dépose ma recherche
+                Acquéreur : je dépose ma recherche
+              </Link>
+              <Link href="/carte" className="text-olive-600 hover:text-olive-800 transition-colors font-light">
+                Propriétaire : je vois les recherches dans mon quartier
               </Link>
             </div>
           </div>

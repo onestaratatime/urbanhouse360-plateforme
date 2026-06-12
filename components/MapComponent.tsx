@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { AcquereurPublic, TIMING_COLORS, TYPE_PROJET_LABELS, TIMING_LABELS, TYPE_BIEN_LABELS } from '@/lib/types';
+import { AcquereurPublic, TIMING_COLORS, TYPE_PROJET_LABELS, TIMING_LABELS, TYPE_BIEN_LABELS, PROFIL_EMOJIS, PROFIL_LABELS } from '@/lib/types';
 import { getQuartierBySlug, getJitteredCoords } from '@/lib/quartiers';
 
 // Fix pour les icônes Leaflet avec Next.js
@@ -20,79 +20,36 @@ interface MapComponentProps {
   compact?: boolean;
 }
 
-// Fonction pour créer une icône maison moderne
-function createHouseIcon(color: string) {
-  const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 52" fill="none" width="40" height="52">
-      <defs>
-        <filter id="shadow-house-${color.replace('#', '')}" x="-4" y="-4" width="48" height="60">
-          <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.3"/>
-        </filter>
-      </defs>
-
-      <!-- Pin moderne arrondi -->
-      <g filter="url(#shadow-house-${color.replace('#', '')})">
-        <path d="M20 0C11.7 0 5 6.7 5 15c0 11.25 15 30 15 30s15-18.75 15-30C35 6.7 28.3 0 20 0z"
-              fill="${color}"/>
-        <circle cx="20" cy="15" r="11" fill="white" opacity="0.95"/>
-      </g>
-
-      <!-- Icône maison avec toit -->
-      <g transform="translate(20, 15)">
-        <path d="M-6 -2L0 -6L6 -2V4H-6V-2Z" fill="${color}" opacity="0.9"/>
-        <rect x="-2" y="0" width="4" height="4" fill="${color}"/>
-        <rect x="-5" y="-0.5" width="2" height="2" fill="white" opacity="0.7"/>
-        <rect x="3" y="-0.5" width="2" height="2" fill="white" opacity="0.7"/>
-        <path d="M-7 -2L0 -7L7 -2" stroke="${color}" stroke-width="0.8" fill="none" opacity="0.8"/>
-      </g>
-    </svg>
-  `;
-
-  return L.divIcon({
-    html: svg,
-    className: 'custom-marker-modern',
-    iconSize: [40, 52],
-    iconAnchor: [20, 52],
-    popupAnchor: [0, -52],
-  });
+// Fonction pour obtenir l'emoji du profil choisi par l'acquéreur
+function getProfileEmoji(acquereur: AcquereurPublic): string {
+  return PROFIL_EMOJIS[acquereur.profil];
 }
 
-// Fonction pour créer une icône appartement moderne
-function createApartmentIcon(color: string) {
+// Fonction pour créer une icône avec emoji
+function createPersonIcon(color: string, emoji: string) {
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 52" fill="none" width="40" height="52">
       <defs>
-        <filter id="shadow-apt-${color.replace('#', '')}" x="-4" y="-4" width="48" height="60">
+        <filter id="shadow-${color.replace('#', '')}" x="-4" y="-4" width="48" height="60">
           <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.3"/>
         </filter>
       </defs>
 
       <!-- Pin moderne arrondi -->
-      <g filter="url(#shadow-apt-${color.replace('#', '')})">
+      <g filter="url(#shadow-${color.replace('#', '')})">
         <path d="M20 0C11.7 0 5 6.7 5 15c0 11.25 15 30 15 30s15-18.75 15-30C35 6.7 28.3 0 20 0z"
               fill="${color}"/>
         <circle cx="20" cy="15" r="11" fill="white" opacity="0.95"/>
       </g>
 
-      <!-- Icône immeuble/appartement -->
-      <g transform="translate(20, 15)">
-        <rect x="-5" y="-5" width="10" height="9" fill="${color}" rx="0.5" opacity="0.9"/>
-        <rect x="-4" y="-4" width="2" height="1.5" fill="white" opacity="0.7"/>
-        <rect x="-1" y="-4" width="2" height="1.5" fill="white" opacity="0.7"/>
-        <rect x="2" y="-4" width="2" height="1.5" fill="white" opacity="0.7"/>
-        <rect x="-4" y="-1.5" width="2" height="1.5" fill="white" opacity="0.7"/>
-        <rect x="-1" y="-1.5" width="2" height="1.5" fill="white" opacity="0.7"/>
-        <rect x="2" y="-1.5" width="2" height="1.5" fill="white" opacity="0.7"/>
-        <rect x="-4" y="1" width="2" height="1.5" fill="white" opacity="0.7"/>
-        <rect x="-1" y="1" width="2" height="1.5" fill="white" opacity="0.7"/>
-        <rect x="2" y="1" width="2" height="1.5" fill="white" opacity="0.7"/>
-      </g>
+      <!-- Emoji au centre -->
+      <text x="20" y="19" text-anchor="middle" font-size="14" fill="black">${emoji}</text>
     </svg>
   `;
 
   return L.divIcon({
     html: svg,
-    className: 'custom-marker-modern',
+    className: 'custom-marker-person',
     iconSize: [40, 52],
     iconAnchor: [20, 52],
     popupAnchor: [0, -52],
@@ -117,29 +74,25 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
   // Centre de Toulouse
   const center: [number, number] = [43.6045, 1.4442];
 
-  // Générer tous les marqueurs (un par quartier et type de bien pour chaque acquéreur)
+  // Générer tous les marqueurs (un par quartier pour chaque acquéreur)
   const markers = acquereurs.flatMap(acquereur =>
-    acquereur.quartiers.flatMap(quartierSlug =>
-      acquereur.types_bien.map((typeBien, index) => {
-        const quartier = getQuartierBySlug(quartierSlug);
-        if (!quartier) return null;
+    acquereur.quartiers.map(quartierSlug => {
+      const quartier = getQuartierBySlug(quartierSlug);
+      if (!quartier) return null;
 
-        // Décaler légèrement les coordonnées pour les différents types de bien
-        const offset = index * 0.0003; // Petit décalage pour éviter superposition
-        const baseCoords = getJitteredCoords(quartier.coords, acquereur.id + quartierSlug);
-        const coords: [number, number] = [baseCoords[0] + offset, baseCoords[1] + offset];
-        const color = TIMING_COLORS[acquereur.timing];
+      const coords = getJitteredCoords(quartier.coords, acquereur.id + quartierSlug);
+      const color = TIMING_COLORS[acquereur.timing];
+      const emoji = getProfileEmoji(acquereur);
 
-        return {
-          id: `${acquereur.id}-${quartierSlug}-${typeBien}`,
-          coords,
-          color,
-          typeBien,
-          acquereur,
-          quartier
-        };
-      })
-    ).filter(Boolean)
+      return {
+        id: `${acquereur.id}-${quartierSlug}`,
+        coords,
+        color,
+        emoji,
+        acquereur,
+        quartier
+      };
+    }).filter(Boolean)
   );
 
   return (
@@ -163,7 +116,7 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
           <Marker
             key={marker.id}
             position={marker.coords}
-            icon={marker.typeBien === 'maison' ? createHouseIcon(marker.color) : createApartmentIcon(marker.color)}
+            icon={createPersonIcon(marker.color, marker.emoji)}
           >
             <Popup maxWidth={300} className="custom-popup">
               <div className="p-1">
@@ -240,20 +193,56 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
       </MapContainer>
 
       {/* Légende moderne */}
-      <div className="absolute bottom-20 right-4 bg-white rounded-xl shadow-xl p-4 z-[1000] border border-warm-200 backdrop-blur-sm bg-opacity-95">
-        <h4 className="font-bold mb-3 text-sm text-gray-900 border-b border-warm-200 pb-2">Timing du projet</h4>
-        <div className="space-y-2 text-xs">
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.court_terme }} />
-            <span className="text-warm-900">Immédiat</span>
+      <div className="absolute bottom-20 right-4 bg-white rounded-xl shadow-xl p-4 z-[1000] border border-warm-200 backdrop-blur-sm bg-opacity-95 max-w-xs">
+        <h4 className="font-bold mb-3 text-sm text-gray-900 border-b border-warm-200 pb-2">Carte des recherches immobilières</h4>
+
+        {/* Profils */}
+        <div className="mb-4">
+          <h5 className="font-semibold text-xs text-gray-700 mb-2">Profils</h5>
+          <div className="space-y-1.5 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-base">{PROFIL_EMOJIS.personne_seule}</span>
+              <span className="text-warm-900">{PROFIL_LABELS.personne_seule}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-base">{PROFIL_EMOJIS.couple}</span>
+              <span className="text-warm-900">{PROFIL_LABELS.couple}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-base">{PROFIL_EMOJIS.famille}</span>
+              <span className="text-warm-900">{PROFIL_LABELS.famille}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-base">{PROFIL_EMOJIS.famille_nombreuse}</span>
+              <span className="text-warm-900">{PROFIL_LABELS.famille_nombreuse}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-base">{PROFIL_EMOJIS.investisseur}</span>
+              <span className="text-warm-900">{PROFIL_LABELS.investisseur}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-base">{PROFIL_EMOJIS.residence_secondaire}</span>
+              <span className="text-warm-900">{PROFIL_LABELS.residence_secondaire}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.moyen_terme }} />
-            <span className="text-warm-900">6-12 mois</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.long_terme }} />
-            <span className="text-warm-900">1 an+</span>
+        </div>
+
+        {/* Timing */}
+        <div>
+          <h5 className="font-semibold text-xs text-gray-700 mb-2">Timing</h5>
+          <div className="space-y-1.5 text-xs">
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.court_terme }} />
+              <span className="text-warm-900">Immédiat</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.moyen_terme }} />
+              <span className="text-warm-900">6-12 mois</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full shadow-sm" style={{ backgroundColor: TIMING_COLORS.long_terme }} />
+              <span className="text-warm-900">1 an+</span>
+            </div>
           </div>
         </div>
       </div>
