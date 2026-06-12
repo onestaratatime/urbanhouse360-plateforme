@@ -24,3 +24,53 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom map marker styles */
+.custom-marker-modern {
+  background: none !important;
+  border: none !important;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.custom-marker-modern:hover {
+  transform: scale(1.1);
+  z-index: 1000 !important;
+}
+
+/* Custom popup styles */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid #EBE5DD !important;
+}
+
+.leaflet-popup-content {
+  margin: 16px !important;
+  max-width: 300px !important;
+}
+
+.leaflet-popup-tip {
+  border-top-color: #ffffff !important;
+}
+
+/* Map controls styling */
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 20px !important;
+  border: none !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #F5F1EC !important;
+}
