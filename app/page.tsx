@@ -55,7 +55,7 @@ export default async function Home() {
           <div className="max-w-md bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
             {/* Titre accrocheur */}
             <h1 className="text-3xl font-light text-olive-800 mb-4 leading-tight">
-              Trouvez votre lieu de vie idéal à Toulouse et sa région
+              Trouvez votre lieu de vie idéal sur Toulouse et sa région
             </h1>
 
             {/* Les 3 étapes avec un design épuré */}

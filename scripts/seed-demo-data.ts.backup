@@ -1,0 +1,201 @@
+import { createClient } from '@supabase/supabase-js';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+// Load environment variables from .env.local
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+const demoAcquereurs = [
+  {
+    prenom: 'Sophie',
+    email: 'sophie.demo@example.com',
+    telephone: '0601020304',
+    consentement_contact: true,
+    quartiers: ['centre-ville', 'capitole', 'carmes'],
+    type_projet: 'residence_principale',
+    timing: 'court_terme',
+    types_bien: ['appartement'],
+    surface_min: 60,
+    pieces_min: 3,
+    budget_max: 350000,
+    criteres_indispensables: ['balcon', 'ascenseur'],
+    description_projet: 'Recherche T3 avec balcon pour jeune couple',
+    source: 'direct',
+    actif: true
+  },
+  {
+    quartiers: ['saint-cyprien', 'minimes'],
+    type_projet: 'investissement',
+    timing: 'moyen_terme',
+    types_bien: ['appartement', 'maison'],
+    surface_min: 45,
+    pieces_min: 2,
+    budget_max: 250000,
+    criteres_indispensables: ['parking'],
+    description_projet: 'Investissement locatif quartiers dynamiques'
+  },
+  {
+    quartiers: ['rangueil', 'jolimont', 'compans-caffarelli'],
+    type_projet: 'residence_principale',
+    timing: 'long_terme',
+    types_bien: ['maison'],
+    surface_min: 100,
+    pieces_min: 4,
+    budget_max: 450000,
+    criteres_indispensables: ['jardin', 'garage'],
+    description_projet: 'Maison familiale avec jardin'
+  },
+  {
+    quartiers: ['saint-michel', 'esquirol', 'carmes'],
+    type_projet: 'residence_principale',
+    timing: 'court_terme',
+    types_bien: ['appartement'],
+    surface_min: 35,
+    pieces_min: 2,
+    budget_max: 200000,
+    criteres_indispensables: ['ascenseur'],
+    description_projet: 'Premier achat, proche transports'
+  },
+  {
+    quartiers: ['borderouge', 'croix-daurade', 'minimes'],
+    type_projet: 'residence_secondaire',
+    timing: 'moyen_terme',
+    types_bien: ['appartement'],
+    surface_min: 50,
+    pieces_min: 2,
+    budget_max: 180000,
+    criteres_indispensables: ['terrasse'],
+    description_projet: 'Pied-à-terre avec terrasse'
+  },
+  {
+    quartiers: ['saint-sernin', 'arnaud-bernard', 'capitole'],
+    type_projet: 'investissement',
+    timing: 'court_terme',
+    types_bien: ['appartement'],
+    surface_min: 25,
+    pieces_min: 1,
+    budget_max: 150000,
+    criteres_indispensables: ['ascenseur'],
+    description_projet: 'Studio pour location étudiante'
+  },
+  {
+    quartiers: ['les-chalets', 'rangueil', 'jolimont'],
+    type_projet: 'residence_principale',
+    timing: 'long_terme',
+    types_bien: ['maison'],
+    surface_min: 90,
+    pieces_min: 4,
+    budget_max: 380000,
+    criteres_indispensables: ['jardin', 'parking'],
+    description_projet: 'Maison calme pour famille'
+  },
+  {
+    quartiers: ['compans-caffarelli', 'centre-ville'],
+    type_projet: 'residence_principale',
+    timing: 'moyen_terme',
+    types_bien: ['appartement'],
+    surface_min: 70,
+    pieces_min: 3,
+    budget_max: 320000,
+    criteres_indispensables: ['balcon', 'parking'],
+    description_projet: 'T3 moderne avec parking'
+  },
+  {
+    quartiers: ['saint-cyprien', 'saint-michel'],
+    type_projet: 'investissement',
+    timing: 'long_terme',
+    types_bien: ['appartement'],
+    surface_min: 40,
+    pieces_min: 2,
+    budget_max: 190000,
+    criteres_indispensables: ['balcon'],
+    description_projet: 'Investissement locatif à rénover'
+  },
+  {
+    quartiers: ['minimes', 'borderouge', 'croix-daurade'],
+    type_projet: 'residence_principale',
+    timing: 'court_terme',
+    types_bien: ['maison'],
+    surface_min: 110,
+    pieces_min: 5,
+    budget_max: 420000,
+    criteres_indispensables: ['jardin', 'garage', 'parking'],
+    description_projet: 'Grande maison familiale'
+  },
+  {
+    quartiers: ['esquirol', 'carmes', 'capitole'],
+    type_projet: 'residence_principale',
+    timing: 'moyen_terme',
+    types_bien: ['appartement'],
+    surface_min: 55,
+    pieces_min: 2,
+    budget_max: 280000,
+    criteres_indispensables: ['terrasse'],
+    description_projet: 'Appartement avec caractère et terrasse'
+  }
+];
+
+async function seedDemoData() {
+  console.log('🌱 Seeding demo data into Supabase...\n');
+
+  // Clear existing demo data
+  console.log('Clearing existing demo data...');
+  const { error: deleteError } = await supabase
+    .from('acquereurs')
+    .delete()
+    .like('email', '%.demo@example.com');
+
+  if (deleteError) {
+    console.error('Error clearing data:', deleteError);
+  } else {
+    console.log('✓ Existing data cleared\n');
+  }
+
+  // Insert demo data
+  console.log('Inserting demo acquéreurs...');
+  for (const acquereur of demoAcquereurs) {
+    const { data, error} = await supabase
+      .from('acquereurs')
+      .insert([acquereur])
+      .select();
+
+    if (error) {
+      console.error(`✗ Error inserting:`, error.message);
+    } else {
+      console.log(`✓ Inserted ${acquereur.timing} - ${acquereur.quartiers.join(', ')}`);
+    }
+  }
+
+  // Verify
+  const { data: allData, error: countError } = await supabase
+    .from('acquereurs_publics')
+    .select('*');
+
+  if (countError) {
+    console.error('\n✗ Error counting:', countError);
+  } else {
+    console.log(`\n✅ Successfully seeded ${allData?.length || 0} demo acquéreurs!`);
+
+    // Stats
+    const timingStats = {
+      court_terme: allData?.filter(a => a.timing === 'court_terme').length || 0,
+      moyen_terme: allData?.filter(a => a.timing === 'moyen_terme').length || 0,
+      long_terme: allData?.filter(a => a.timing === 'long_terme').length || 0,
+    };
+
+    const nbQuartiers = new Set(allData?.flatMap(a => a.quartiers)).size;
+
+    console.log('\n📊 Statistics:');
+    console.log(`   - Immédiat (court_terme): ${timingStats.court_terme}`);
+    console.log(`   - 6-12 mois (moyen_terme): ${timingStats.moyen_terme}`);
+    console.log(`   - 1 an+ (long_terme): ${timingStats.long_terme}`);
+    console.log(`   - Quartiers couverts: ${nbQuartiers}`);
+  }
+}
+
+seedDemoData().catch(console.error);
