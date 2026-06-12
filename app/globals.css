@@ -1,15 +1,48 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  /* Couleurs brique toulousaine - ROUGE ULTRA VIF */
+  --color-brick-50: #FFE5E5;
+  --color-brick-100: #FFCCCC;
+  --color-brick-200: #FF9999;
+  --color-brick-300: #FF6666;
+  --color-brick-400: #FF3333;
+  --color-brick-500: #FF0000;
+  --color-brick-600: #CC0000;
+  --color-brick-700: #990000;
+  --color-brick-800: #660000;
+  --color-brick-900: #330000;
+
+  /* Vert nature - VERT ULTRA VIF */
+  --color-forest-50: #E5FFE5;
+  --color-forest-100: #CCFFCC;
+  --color-forest-200: #99FF99;
+  --color-forest-300: #66FF66;
+  --color-forest-400: #33FF33;
+  --color-forest-500: #00CC00;
+  --color-forest-600: #009900;
+  --color-forest-700: #006600;
+  --color-forest-800: #004400;
+  --color-forest-900: #002200;
+
+  /* Neutres chaleureux */
+  --color-warm-50: #FDFCFB;
+  --color-warm-100: #F9F7F4;
+  --color-warm-200: #F5F1EC;
+  --color-warm-300: #EBE5DD;
+  --color-warm-400: #D9CEBF;
+  --color-warm-500: #C4B5A0;
+  --color-warm-600: #9D8B73;
+  --color-warm-700: #7A6A55;
+  --color-warm-800: #5C5042;
+  --color-warm-900: #3E3730;
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {

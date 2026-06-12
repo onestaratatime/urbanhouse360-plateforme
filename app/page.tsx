@@ -49,7 +49,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-brick-700 mb-6">
-              Votre future maison vous cherche aussi
+              des maisons dans votre quartier de rêve
             </h1>
             <p className="text-xl md:text-2xl text-gray-800 mb-8">
               Inscrivez votre recherche, apparaissez anonymement sur la carte, et recevez des biens
