@@ -51,8 +51,8 @@ export default async function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-olive-900/10 z-10"></div>
 
         {/* Encart élégant à gauche */}
-        <div className="relative z-[1000] h-full flex items-center px-8 lg:px-16">
-          <div className="max-w-md bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
+        <div className="relative z-[1000] h-full flex items-center px-8 lg:px-16 pb-24">
+          <div className="max-w-md bg-white/95 backdrop-blur-sm p-8 pb-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
             {/* Titre accrocheur */}
             <h1 className="text-3xl font-light text-olive-800 mb-6 leading-tight">
               Trouvez votre lieu de vie idéal à Toulouse et sa région
