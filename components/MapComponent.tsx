@@ -240,7 +240,7 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
       </MapContainer>
 
       {/* Légende moderne */}
-      <div className="absolute bottom-4 right-4 bg-white rounded-xl shadow-xl p-4 z-[1000] border border-warm-200 backdrop-blur-sm bg-opacity-95">
+      <div className="absolute bottom-20 right-4 bg-white rounded-xl shadow-xl p-4 z-[1000] border border-warm-200 backdrop-blur-sm bg-opacity-95">
         <h4 className="font-bold mb-3 text-sm text-gray-900 border-b border-warm-200 pb-2">Timing du projet</h4>
         <div className="space-y-2 text-xs">
           <div className="flex items-center gap-2">

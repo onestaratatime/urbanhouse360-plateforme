@@ -129,9 +129,9 @@ export const TIMING_LABELS: Record<Timing, string> = {
 };
 
 export const TIMING_COLORS: Record<Timing, string> = {
-  court_terme: '#f87171', // rouge pastel (red-400)
-  moyen_terme: '#fbbf24', // jaune pastel (amber-400)
-  long_terme: '#34d399'   // vert pastel (emerald-400)
+  court_terme: '#fb9393', // rouge pastel plus visible (entre red-300 et red-400)
+  moyen_terme: '#fac638', // jaune pastel plus visible (entre amber-300 et amber-400)
+  long_terme: '#5edbaa'   // vert pastel plus visible (entre emerald-300 et emerald-400)
 };
 
 export const TYPE_BIEN_LABELS: Record<TypeBien, string> = {
