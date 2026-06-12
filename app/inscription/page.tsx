@@ -34,6 +34,7 @@ export default function InscriptionPage() {
     type_projet: 'residence_principale',
     timing: 'moyen_terme',
     types_bien: [],
+    profil: 'couple',
     surface_min: undefined,
     pieces_min: undefined,
     budget_max: undefined,
