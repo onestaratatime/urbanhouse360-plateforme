@@ -20,50 +20,82 @@ interface MapComponentProps {
   compact?: boolean;
 }
 
-// Fonction pour créer une icône moderne style Google Maps
-function createPersonIcon(color: string) {
+// Fonction pour créer une icône maison moderne
+function createHouseIcon(color: string) {
   const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 48" fill="none" width="45" height="60">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 52" fill="none" width="40" height="52">
       <defs>
-        <filter id="shadow-${color}" x="-4" y="-4" width="44" height="56">
-          <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.4"/>
+        <filter id="shadow-house-${color.replace('#', '')}" x="-4" y="-4" width="48" height="60">
+          <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.3"/>
         </filter>
       </defs>
 
-      <!-- Pin principal avec gradient -->
-      <g filter="url(#shadow-${color})">
-        <path d="M18 0C8.1 0 0 8.1 0 18c0 13.5 18 30 18 30s18-16.5 18-30C36 8.1 27.9 0 18 0z"
+      <!-- Pin moderne arrondi -->
+      <g filter="url(#shadow-house-${color.replace('#', '')})">
+        <path d="M20 0C11.7 0 5 6.7 5 15c0 11.25 15 30 15 30s15-18.75 15-30C35 6.7 28.3 0 20 0z"
               fill="${color}"/>
-        <path d="M18 2C9.2 2 2 9.2 2 18c0 12 16 27 16 27s16-15 16-27C34 9.2 26.8 2 18 2z"
-              fill="url(#grad-${color})"/>
+        <circle cx="20" cy="15" r="11" fill="white" opacity="0.95"/>
       </g>
 
-      <!-- Cercle blanc intérieur plus grand -->
-      <circle cx="18" cy="18" r="12" fill="white" opacity="0.98"/>
-
-      <!-- Icône maison moderne -->
-      <g transform="translate(18, 18)">
-        <path d="M-6 -3L0 -7L6 -3V5H-6V-3Z" fill="${color}" opacity="0.9"/>
-        <rect x="-2" y="0" width="4" height="5" fill="${color}"/>
-        <rect x="-5" y="-1" width="2.5" height="2.5" fill="white" opacity="0.7"/>
-        <rect x="2.5" y="-1" width="2.5" height="2.5" fill="white" opacity="0.7"/>
+      <!-- Icône maison avec toit -->
+      <g transform="translate(20, 15)">
+        <path d="M-6 -2L0 -6L6 -2V4H-6V-2Z" fill="${color}" opacity="0.9"/>
+        <rect x="-2" y="0" width="4" height="4" fill="${color}"/>
+        <rect x="-5" y="-0.5" width="2" height="2" fill="white" opacity="0.7"/>
+        <rect x="3" y="-0.5" width="2" height="2" fill="white" opacity="0.7"/>
+        <path d="M-7 -2L0 -7L7 -2" stroke="${color}" stroke-width="0.8" fill="none" opacity="0.8"/>
       </g>
-
-      <defs>
-        <linearGradient id="grad-${color}" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:${color};stop-opacity:1" />
-          <stop offset="100%" style="stop-color:${color};stop-opacity:0.85" />
-        </linearGradient>
-      </defs>
     </svg>
   `;
 
   return L.divIcon({
     html: svg,
     className: 'custom-marker-modern',
-    iconSize: [45, 60],
-    iconAnchor: [22.5, 60],
-    popupAnchor: [0, -60],
+    iconSize: [40, 52],
+    iconAnchor: [20, 52],
+    popupAnchor: [0, -52],
+  });
+}
+
+// Fonction pour créer une icône appartement moderne
+function createApartmentIcon(color: string) {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 52" fill="none" width="40" height="52">
+      <defs>
+        <filter id="shadow-apt-${color.replace('#', '')}" x="-4" y="-4" width="48" height="60">
+          <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.3"/>
+        </filter>
+      </defs>
+
+      <!-- Pin moderne arrondi -->
+      <g filter="url(#shadow-apt-${color.replace('#', '')})">
+        <path d="M20 0C11.7 0 5 6.7 5 15c0 11.25 15 30 15 30s15-18.75 15-30C35 6.7 28.3 0 20 0z"
+              fill="${color}"/>
+        <circle cx="20" cy="15" r="11" fill="white" opacity="0.95"/>
+      </g>
+
+      <!-- Icône immeuble/appartement -->
+      <g transform="translate(20, 15)">
+        <rect x="-5" y="-5" width="10" height="9" fill="${color}" rx="0.5" opacity="0.9"/>
+        <rect x="-4" y="-4" width="2" height="1.5" fill="white" opacity="0.7"/>
+        <rect x="-1" y="-4" width="2" height="1.5" fill="white" opacity="0.7"/>
+        <rect x="2" y="-4" width="2" height="1.5" fill="white" opacity="0.7"/>
+        <rect x="-4" y="-1.5" width="2" height="1.5" fill="white" opacity="0.7"/>
+        <rect x="-1" y="-1.5" width="2" height="1.5" fill="white" opacity="0.7"/>
+        <rect x="2" y="-1.5" width="2" height="1.5" fill="white" opacity="0.7"/>
+        <rect x="-4" y="1" width="2" height="1.5" fill="white" opacity="0.7"/>
+        <rect x="-1" y="1" width="2" height="1.5" fill="white" opacity="0.7"/>
+        <rect x="2" y="1" width="2" height="1.5" fill="white" opacity="0.7"/>
+      </g>
+    </svg>
+  `;
+
+  return L.divIcon({
+    html: svg,
+    className: 'custom-marker-modern',
+    iconSize: [40, 52],
+    iconAnchor: [20, 52],
+    popupAnchor: [0, -52],
   });
 }
 
@@ -85,30 +117,36 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
   // Centre de Toulouse
   const center: [number, number] = [43.6045, 1.4442];
 
-  // Générer tous les marqueurs (un par quartier pour chaque acquéreur)
+  // Générer tous les marqueurs (un par quartier et type de bien pour chaque acquéreur)
   const markers = acquereurs.flatMap(acquereur =>
-    acquereur.quartiers.map(quartierSlug => {
-      const quartier = getQuartierBySlug(quartierSlug);
-      if (!quartier) return null;
+    acquereur.quartiers.flatMap(quartierSlug =>
+      acquereur.types_bien.map((typeBien, index) => {
+        const quartier = getQuartierBySlug(quartierSlug);
+        if (!quartier) return null;
 
-      const coords = getJitteredCoords(quartier.coords, acquereur.id + quartierSlug);
-      const color = TIMING_COLORS[acquereur.timing];
+        // Décaler légèrement les coordonnées pour les différents types de bien
+        const offset = index * 0.0003; // Petit décalage pour éviter superposition
+        const baseCoords = getJitteredCoords(quartier.coords, acquereur.id + quartierSlug);
+        const coords: [number, number] = [baseCoords[0] + offset, baseCoords[1] + offset];
+        const color = TIMING_COLORS[acquereur.timing];
 
-      return {
-        id: `${acquereur.id}-${quartierSlug}`,
-        coords,
-        color,
-        acquereur,
-        quartier
-      };
-    }).filter(Boolean)
+        return {
+          id: `${acquereur.id}-${quartierSlug}-${typeBien}`,
+          coords,
+          color,
+          typeBien,
+          acquereur,
+          quartier
+        };
+      })
+    ).filter(Boolean)
   );
 
   return (
     <div className={`relative ${compact ? 'h-96' : 'h-screen'} w-full rounded-lg overflow-hidden`}>
       <MapContainer
         center={center}
-        zoom={compact ? 11 : 12}
+        zoom={compact ? 11 : 13}
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom={!compact}
         zoomControl={!compact}
@@ -125,7 +163,7 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
           <Marker
             key={marker.id}
             position={marker.coords}
-            icon={createPersonIcon(marker.color)}
+            icon={marker.typeBien === 'maison' ? createHouseIcon(marker.color) : createApartmentIcon(marker.color)}
           >
             <Popup maxWidth={300} className="custom-popup">
               <div className="p-1">
