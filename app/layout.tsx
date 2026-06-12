@@ -15,8 +15,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "UrbanHouse360 - Trouvez votre maison à Toulouse",
-  description: "Plateforme innovante pour trouver votre bien immobilier à Toulouse. Inscrivez-vous gratuitement et recevez des opportunités exclusives.",
+  title: "UrbanHouse - Trouvez votre maison à Toulouse et sa région",
+  description: "Plateforme innovante pour trouver votre bien immobilier à Toulouse et sa région. Inscrivez-vous gratuitement et recevez des opportunités exclusives.",
 };
 
 export default function RootLayout({

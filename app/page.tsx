@@ -55,7 +55,7 @@ export default async function Home() {
           <div className="max-w-md bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
             {/* Titre accrocheur */}
             <h1 className="text-3xl font-light text-olive-800 mb-6 leading-tight">
-              Trouvez votre lieu de vie idéal à Toulouse
+              Trouvez votre lieu de vie idéal à Toulouse et sa région
             </h1>
 
             {/* Les 3 étapes avec un design épuré */}
@@ -126,7 +126,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-8 py-4">
           <div className="flex justify-between items-center">
             <p className="text-sm text-olive-600 font-light">
-              © 2026 UrbanHouse - Toulouse
+              © 2026 UrbanHouse - Toulouse et sa région
             </p>
             <div className="flex space-x-8 text-sm">
               <Link href="/carte" className="text-olive-600 hover:text-olive-800 transition-colors font-light">
