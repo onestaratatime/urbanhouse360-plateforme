@@ -123,7 +123,7 @@ export default function FormulaireProprietaire() {
           </button>
 
           <p className="text-xs text-warm-600 text-center pt-1">
-            🔒 Vos informations ne seront jamais partagées
+            🔒 Vos informations ne seront jamais partagées sans accord
           </p>
         </form>
       </div>
