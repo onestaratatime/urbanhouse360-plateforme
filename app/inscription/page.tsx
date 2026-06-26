@@ -154,22 +154,22 @@ export default function InscriptionPage() {
 
         {/* Progress bar */}
         <div className="mb-8">
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex justify-between items-center mb-3">
             {[1, 2, 3, 4, 5].map(s => (
               <div
                 key={s}
-                className={`flex-1 h-2 mx-1 rounded-full transition-colors ${
-                  s <= step ? 'bg-brick-500' : 'bg-warm-300'
+                className={`flex-1 h-3 mx-1 rounded-full transition-all duration-300 ${
+                  s < step ? 'bg-olive-600' : s === step ? 'bg-olive-500' : 'bg-gray-200'
                 }`}
               />
             ))}
           </div>
-          <div className="flex justify-between text-xs text-gray-600">
-            <span>Localisation</span>
-            <span>Profil</span>
-            <span>Projet</span>
-            <span>Critères</span>
-            <span>Coordonnées</span>
+          <div className="flex text-xs font-medium">
+            <span className={`flex-1 text-center ${step === 1 ? 'text-olive-700' : step > 1 ? 'text-olive-600' : 'text-gray-500'}`}>Localisation</span>
+            <span className={`flex-1 text-center ${step === 2 ? 'text-olive-700' : step > 2 ? 'text-olive-600' : 'text-gray-500'}`}>Profil</span>
+            <span className={`flex-1 text-center ${step === 3 ? 'text-olive-700' : step > 3 ? 'text-olive-600' : 'text-gray-500'}`}>Projet</span>
+            <span className={`flex-1 text-center ${step === 4 ? 'text-olive-700' : step > 4 ? 'text-olive-600' : 'text-gray-500'}`}>Critères</span>
+            <span className={`flex-1 text-center ${step === 5 ? 'text-olive-700' : step > 5 ? 'text-olive-600' : 'text-gray-500'}`}>Coordonnées</span>
           </div>
         </div>
 
@@ -209,7 +209,7 @@ export default function InscriptionPage() {
                   type="text"
                   value={formData.precision_localisation}
                   onChange={e => setFormData({ ...formData, precision_localisation: e.target.value })}
-                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                   placeholder="Ex: Proche métro, secteur calme..."
                 />
               </div>
@@ -234,7 +234,7 @@ export default function InscriptionPage() {
                         value={value}
                         checked={formData.profil === value}
                         onChange={e => setFormData({ ...formData, profil: e.target.value as Profil })}
-                        className="w-4 h-4 text-brick-600 focus:ring-2 focus:ring-brick-500"
+                        className="w-4 h-4 text-olive-600 focus:ring-2 focus:ring-olive-500"
                       />
                       <span>{label}</span>
                     </label>
@@ -262,7 +262,7 @@ export default function InscriptionPage() {
                         value={value}
                         checked={formData.type_projet === value}
                         onChange={e => setFormData({ ...formData, type_projet: e.target.value as TypeProjet })}
-                        className="w-4 h-4 text-brick-600 focus:ring-2 focus:ring-brick-500"
+                        className="w-4 h-4 text-olive-600 focus:ring-2 focus:ring-olive-500"
                       />
                       <span>{label}</span>
                     </label>
@@ -283,7 +283,7 @@ export default function InscriptionPage() {
                         value={value}
                         checked={formData.nature_projet === value}
                         onChange={e => setFormData({ ...formData, nature_projet: e.target.value as NatureProjet })}
-                        className="w-4 h-4 text-brick-600 focus:ring-2 focus:ring-brick-500"
+                        className="w-4 h-4 text-olive-600 focus:ring-2 focus:ring-olive-500"
                       />
                       <span>{label}</span>
                     </label>
@@ -304,7 +304,7 @@ export default function InscriptionPage() {
                         value={value}
                         checked={formData.timing === value}
                         onChange={e => setFormData({ ...formData, timing: e.target.value as Timing })}
-                        className="w-4 h-4 text-brick-600 focus:ring-2 focus:ring-brick-500"
+                        className="w-4 h-4 text-olive-600 focus:ring-2 focus:ring-olive-500"
                       />
                       <span>{label}</span>
                     </label>
@@ -333,7 +333,7 @@ export default function InscriptionPage() {
                             : formData.types_bien.filter(t => t !== value);
                           setFormData({ ...formData, types_bien: types });
                         }}
-                        className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                        className="w-4 h-4 text-olive-600 rounded focus:ring-2 focus:ring-olive-500"
                       />
                       <span>{label}</span>
                     </label>
@@ -360,7 +360,7 @@ export default function InscriptionPage() {
                     type="number"
                     value={formData.surface_min || ''}
                     onChange={e => setFormData({ ...formData, surface_min: e.target.value ? parseInt(e.target.value) : undefined })}
-                    className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                     placeholder="Ex: 60"
                   />
                 </div>
@@ -372,7 +372,7 @@ export default function InscriptionPage() {
                   <select
                     value={formData.pieces_min || ''}
                     onChange={e => setFormData({ ...formData, pieces_min: e.target.value ? parseInt(e.target.value) : undefined })}
-                    className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                   >
                     <option value="">Sélectionner</option>
                     {PIECES_OPTIONS.map(opt => (
@@ -390,7 +390,7 @@ export default function InscriptionPage() {
                   type="number"
                   value={formData.budget_max || ''}
                   onChange={e => setFormData({ ...formData, budget_max: e.target.value ? parseInt(e.target.value) : undefined })}
-                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                   placeholder="Ex: 300000"
                 />
               </div>
@@ -411,7 +411,7 @@ export default function InscriptionPage() {
                             : (formData.criteres_principaux || []).filter(c => c !== opt.value);
                           setFormData({ ...formData, criteres_principaux: criteres });
                         }}
-                        className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                        className="w-4 h-4 text-olive-600 rounded focus:ring-2 focus:ring-olive-500"
                       />
                       <span className="text-sm">{opt.label}</span>
                     </label>
@@ -427,7 +427,7 @@ export default function InscriptionPage() {
                   type="text"
                   value={formData.criteres_principaux_autre}
                   onChange={e => setFormData({ ...formData, criteres_principaux_autre: e.target.value })}
-                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                   placeholder="Ex: Double vitrage, fibre..."
                 />
               </div>
@@ -440,7 +440,7 @@ export default function InscriptionPage() {
                   value={formData.criteres_secondaires}
                   onChange={e => setFormData({ ...formData, criteres_secondaires: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                   placeholder="Ex: Luminosité, calme, nombre d'enfants, lieu de travail, mode de transport..."
                 />
               </div>
@@ -453,7 +453,7 @@ export default function InscriptionPage() {
                   value={formData.description_projet}
                   onChange={e => setFormData({ ...formData, description_projet: e.target.value })}
                   rows={4}
-                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                   placeholder="Ex: Maison familiale, partie professionnelle, gîte..."
                 />
               </div>
@@ -490,8 +490,8 @@ export default function InscriptionPage() {
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900">Vos coordonnées</h2>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                <p className="text-sm text-blue-900">
+              <div className="bg-olive-50 border border-olive-200 rounded-lg p-4 mb-6">
+                <p className="text-sm text-olive-800">
                   <strong>Pourquoi ces informations ?</strong> Pour vous envoyer une sélection de biens
                   correspondant à vos critères et des alertes sur vos quartiers. Vos coordonnées restent
                   confidentielles. Seul votre profil de recherche anonymisé apparaît sur la carte.
@@ -507,7 +507,7 @@ export default function InscriptionPage() {
                   value={formData.prenom}
                   onChange={e => setFormData({ ...formData, prenom: e.target.value })}
                   required
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent ${
                     fieldErrors.prenom ? 'border-red-500' : 'border-gray-300'
                   }`}
                 />
@@ -525,7 +525,7 @@ export default function InscriptionPage() {
                   value={formData.email}
                   onChange={e => setFormData({ ...formData, email: e.target.value })}
                   required
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent ${
                     fieldErrors.email ? 'border-red-500' : 'border-gray-300'
                   }`}
                 />
@@ -543,7 +543,7 @@ export default function InscriptionPage() {
                   value={formData.telephone}
                   onChange={e => setFormData({ ...formData, telephone: e.target.value })}
                   required
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent ${
                     fieldErrors.telephone ? 'border-red-500' : 'border-gray-300'
                   }`}
                 />
@@ -559,7 +559,7 @@ export default function InscriptionPage() {
                     checked={formData.consentement_contact}
                     onChange={e => setFormData({ ...formData, consentement_contact: e.target.checked })}
                     required
-                    className="w-4 h-4 mt-1 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                    className="w-4 h-4 mt-1 text-olive-600 rounded focus:ring-2 focus:ring-olive-500"
                   />
                   <span className="text-sm text-gray-700">
                     J'accepte d'être recontacté par UrbanHouse360 et de recevoir des sélections de biens
@@ -592,7 +592,7 @@ export default function InscriptionPage() {
                 type="button"
                 onClick={() => setStep(step + 1)}
                 disabled={!canGoToNextStep()}
-                className="px-6 py-2 bg-brick-500 text-white rounded-lg hover:bg-brick-600 disabled:bg-warm-300 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-all"
+                className="px-6 py-2 bg-olive-600 text-white rounded-lg hover:bg-olive-700 disabled:bg-warm-300 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-all"
               >
                 Suivant
               </button>
@@ -600,7 +600,7 @@ export default function InscriptionPage() {
               <button
                 type="submit"
                 disabled={!canGoToNextStep() || loading}
-                className="px-6 py-2 bg-brick-500 text-white rounded-lg hover:bg-brick-600 disabled:bg-warm-300 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-all"
+                className="px-6 py-2 bg-olive-600 text-white rounded-lg hover:bg-olive-700 disabled:bg-warm-300 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-all"
               >
                 {loading ? 'Inscription en cours...' : 'M\'inscrire gratuitement'}
               </button>
