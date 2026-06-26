@@ -65,7 +65,7 @@ export default async function Home() {
                   <span className="text-olive-600 text-xs font-medium">1</span>
                 </div>
                 <p className="text-olive-700 font-light leading-relaxed text-sm">
-                  Indiquez vos quartiers de rêve, votre type de bien, votre budget et vos critères préférés
+                  Décrivez votre bien idéal : quartier/ville, type de bien, critères, budget, timing
                 </p>
               </div>
 
@@ -74,7 +74,7 @@ export default async function Home() {
                   <span className="text-olive-600 text-xs font-medium">2</span>
                 </div>
                 <p className="text-olive-700 font-light leading-relaxed text-sm">
-                  Votre recherche devient visible pour les propriétaires du quartier, votre profil reste privé
+                  Votre recherche devient visible pour les propriétaires, votre identité reste confidentielle
                 </p>
               </div>
 
@@ -83,7 +83,7 @@ export default async function Home() {
                   <span className="text-olive-600 text-xs font-medium">3</span>
                 </div>
                 <p className="text-olive-700 font-light leading-relaxed text-sm">
-                  Nous vous envoyons des informations sur les biens qui matchent avec votre recherche
+                  Recevez directement les offres qui correspondent à votre projet
                 </p>
               </div>
             </div>

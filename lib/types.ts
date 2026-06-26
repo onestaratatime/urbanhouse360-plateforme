@@ -1,12 +1,13 @@
 // Types pour l'application UrbanHouse360
 
 export type TypeProjet = 'residence_principale' | 'residence_secondaire' | 'investissement';
+export type NatureProjet = 'primo_accedant' | 'deuxieme_achat' | 'investisseur' | 'autre';
 export type Timing = 'court_terme' | 'moyen_terme' | 'long_terme';
-export type TypeBien = 'appartement' | 'maison';
+export type TypeBien = 'appartement' | 'maison' | 'terrain';
 export type Source = 'direct' | 'agence';
-export type Profil = 'personne_seule' | 'couple' | 'famille' | 'famille_nombreuse' | 'investisseur' | 'residence_secondaire';
+export type Profil = 'individuel' | 'couple' | 'famille' | 'investisseur' | 'residence_secondaire';
 
-export type CritereIndispensable =
+export type CriterePrincipal =
   | 'terrasse'
   | 'balcon'
   | 'jardin'
@@ -36,6 +37,7 @@ export interface AcquereurComplet {
 
   // Projet
   type_projet: TypeProjet;
+  nature_projet?: NatureProjet;
   timing: Timing;
   types_bien: TypeBien[];
   profil: Profil;
@@ -45,8 +47,8 @@ export interface AcquereurComplet {
   pieces_min?: number;
   budget_max?: number;
 
-  criteres_indispensables?: CritereIndispensable[];
-  criteres_indispensables_autre?: string;
+  criteres_principaux?: CriterePrincipal[];
+  criteres_principaux_autre?: string;
   criteres_secondaires?: string;
   description_projet?: string;
 }
@@ -62,6 +64,7 @@ export interface AcquereurPublic {
 
   // Projet
   type_projet: TypeProjet;
+  nature_projet?: NatureProjet;
   timing: Timing;
   types_bien: TypeBien[];
   profil: Profil;
@@ -71,8 +74,8 @@ export interface AcquereurPublic {
   pieces_min?: number;
   budget_max?: number;
 
-  criteres_indispensables?: CritereIndispensable[];
-  criteres_indispensables_autre?: string;
+  criteres_principaux?: CriterePrincipal[];
+  criteres_principaux_autre?: string;
   criteres_secondaires?: string;
   description_projet?: string;
 }
@@ -104,6 +107,7 @@ export interface FormulaireInscription {
 
   // Projet
   type_projet: TypeProjet;
+  nature_projet?: NatureProjet;
   timing: Timing;
   types_bien: TypeBien[];
   profil: Profil;
@@ -113,8 +117,8 @@ export interface FormulaireInscription {
   pieces_min?: number;
   budget_max?: number;
 
-  criteres_indispensables?: CritereIndispensable[];
-  criteres_indispensables_autre?: string;
+  criteres_principaux?: CriterePrincipal[];
+  criteres_principaux_autre?: string;
   criteres_secondaires?: string;
   description_projet?: string;
 }
@@ -140,10 +144,18 @@ export const TIMING_COLORS: Record<Timing, string> = {
 
 export const TYPE_BIEN_LABELS: Record<TypeBien, string> = {
   appartement: 'Appartement',
-  maison: 'Maison'
+  maison: 'Maison',
+  terrain: 'Terrain'
 };
 
-export const CRITERES_INDISPENSABLES_OPTIONS: { value: CritereIndispensable; label: string }[] = [
+export const NATURE_PROJET_LABELS: Record<NatureProjet, string> = {
+  primo_accedant: 'Primo-accédant (premier achat)',
+  deuxieme_achat: 'Deuxième achat ou plus',
+  investisseur: 'Investisseur',
+  autre: 'Autre'
+};
+
+export const CRITERES_PRINCIPAUX_OPTIONS: { value: CriterePrincipal; label: string }[] = [
   { value: 'terrasse', label: 'Terrasse' },
   { value: 'balcon', label: 'Balcon' },
   { value: 'jardin', label: 'Jardin' },
@@ -164,19 +176,17 @@ export const PIECES_OPTIONS = [
 ];
 
 export const PROFIL_LABELS: Record<Profil, string> = {
-  personne_seule: 'Seul',
+  individuel: 'Individuel',
   couple: 'Couple',
-  famille: 'Famille (1-2 enfants)',
-  famille_nombreuse: 'Famille (3+)',
+  famille: 'Famille',
   investisseur: 'Investisseur',
   residence_secondaire: 'Résidence secondaire'
 };
 
 export const PROFIL_EMOJIS: Record<Profil, string> = {
-  personne_seule: '👤',
+  individuel: '👤',
   couple: '👥',
-  famille: '👨‍👩‍👧',
-  famille_nombreuse: '👨‍👩‍👧‍👦',
+  famille: '👨‍👩‍👧‍👦',
   investisseur: '💰',
   residence_secondaire: '🏖️'
 };
