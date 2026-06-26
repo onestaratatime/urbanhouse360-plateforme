@@ -47,16 +47,16 @@ export default function FormulaireProprietaire() {
     <div className="absolute bottom-6 right-6 w-96 max-h-[calc(100vh-100px)] overflow-y-auto bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-warm-200 p-5 z-[1000]">
       <div className="space-y-3">
         <div>
-          <h3 className="text-lg font-semibold text-green-800">
+          <h3 className="text-lg font-semibold text-olive-800">
             Propriétaire ?
           </h3>
-          <p className="text-sm text-green-700 mt-1 font-medium">
+          <p className="text-sm text-olive-700 mt-1 font-medium">
             Découvrez les acquéreurs qui recherchent des biens similaires au vôtre, sans le mettre en vente
           </p>
         </div>
 
-        <div className="bg-green-100 border-2 border-green-400 rounded-lg p-3">
-          <p className="text-xs text-green-900 font-semibold leading-relaxed">
+        <div className="bg-olive-100 border-2 border-olive-500 rounded-lg p-3">
+          <p className="text-xs text-olive-900 font-semibold leading-relaxed">
             ✓ Sans engagement<br />
             ✓ Données strictement confidentielles<br />
             ✓ Accès immédiat aux acquéreurs à proximité
@@ -75,7 +75,7 @@ export default function FormulaireProprietaire() {
             placeholder="Adresse du bien"
             value={formData.adresse}
             onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
-            className="w-full px-3 py-2 text-sm border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="w-full px-3 py-2 text-sm border-2 border-olive-400 rounded-lg focus:ring-2 focus:ring-olive-600 focus:border-olive-600"
             required
           />
           <input
@@ -83,7 +83,7 @@ export default function FormulaireProprietaire() {
             placeholder="Prénom"
             value={formData.prenom}
             onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
-            className="w-full px-3 py-2 text-sm border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="w-full px-3 py-2 text-sm border-2 border-olive-400 rounded-lg focus:ring-2 focus:ring-olive-600 focus:border-olive-600"
             required
           />
           <input
@@ -91,7 +91,7 @@ export default function FormulaireProprietaire() {
             placeholder="Email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-3 py-2 text-sm border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="w-full px-3 py-2 text-sm border-2 border-olive-400 rounded-lg focus:ring-2 focus:ring-olive-600 focus:border-olive-600"
             required
           />
           <input
@@ -99,20 +99,20 @@ export default function FormulaireProprietaire() {
             placeholder="Téléphone"
             value={formData.telephone}
             onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
-            className="w-full px-3 py-2 text-sm border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="w-full px-3 py-2 text-sm border-2 border-olive-400 rounded-lg focus:ring-2 focus:ring-olive-600 focus:border-olive-600"
             required
           />
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-bold shadow-lg hover:shadow-xl transition-all text-sm disabled:bg-warm-300 disabled:cursor-not-allowed"
+            className="w-full px-4 py-3 bg-olive-600 text-white rounded-lg hover:bg-olive-700 font-bold shadow-lg hover:shadow-xl transition-all text-sm disabled:bg-warm-300 disabled:cursor-not-allowed"
           >
             {loading ? 'Envoi en cours...' : 'Voir les acquéreurs à proximité'}
           </button>
 
-          <p className="text-xs text-warm-600 text-center pt-1">
-            🔒 Vos informations ne seront jamais partagées sans accord
+          <p className="text-xs text-olive-600 text-center pt-1">
+            🔒 Vos informations ne seront jamais partagées sans votre accord
           </p>
         </form>
       </div>
