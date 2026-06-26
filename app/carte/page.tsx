@@ -26,22 +26,22 @@ export default async function CartePage() {
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       {/* Header fixe */}
-      <div className="flex-shrink-0 bg-white shadow-md border-b border-warm-200 z-[1000]">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="flex-shrink-0 bg-white/80 backdrop-blur-md z-[1000]">
+        <div className="max-w-7xl mx-auto px-8 py-3 flex justify-between items-center">
           <div>
-            <Link href="/" className="text-xl font-bold text-gray-900 hover:text-brick-600 transition-colors">
+            <Link href="/" className="text-xl font-light tracking-wide text-olive-700 hover:text-olive-800 transition-colors">
               UrbanHouse360
             </Link>
-            <p className="text-sm text-warm-700 mt-1">
+            <p className="text-xs text-olive-600 font-light mt-0.5">
               {acquereurs.length} acquéreur{acquereurs.length > 1 ? 's' : ''} actif{acquereurs.length > 1 ? 's' : ''}
             </p>
           </div>
 
           <Link
             href="/inscription"
-            className="px-6 py-2 bg-brick-500 text-white rounded-lg hover:bg-brick-600 font-medium shadow-md hover:shadow-lg transition-all"
+            className="px-6 py-2 bg-olive-600 text-white rounded-full hover:bg-olive-700 transition-all duration-300 font-light tracking-wide text-sm"
           >
-            Je m'inscris
+            Je dépose ma recherche
           </Link>
         </div>
       </div>

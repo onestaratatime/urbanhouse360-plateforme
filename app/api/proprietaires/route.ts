@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
 
     // Validation basique
-    if (!data.adresse || !data.prenom || !data.nom || !data.email || !data.telephone) {
+    if (!data.adresse || !data.prenom || !data.email || !data.telephone) {
       return NextResponse.json(
         { error: 'Tous les champs sont obligatoires' },
         { status: 400 }
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       .insert({
         adresse: data.adresse,
         prenom: data.prenom,
-        nom: data.nom,
+        nom: data.nom || null, // Optionnel - garde le champ en DB mais non requis
         email: data.email,
         telephone: data.telephone,
         source: 'formulaire',
