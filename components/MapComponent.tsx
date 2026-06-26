@@ -201,8 +201,8 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
           <h5 className="font-semibold text-xs text-gray-700 mb-2">Profils</h5>
           <div className="space-y-1.5 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-base">{PROFIL_EMOJIS.personne_seule}</span>
-              <span className="text-warm-900">{PROFIL_LABELS.personne_seule}</span>
+              <span className="text-base">{PROFIL_EMOJIS.individuel}</span>
+              <span className="text-warm-900">{PROFIL_LABELS.individuel}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-base">{PROFIL_EMOJIS.couple}</span>
@@ -211,10 +211,6 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
             <div className="flex items-center gap-2">
               <span className="text-base">{PROFIL_EMOJIS.famille}</span>
               <span className="text-warm-900">{PROFIL_LABELS.famille}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-base">{PROFIL_EMOJIS.famille_nombreuse}</span>
-              <span className="text-warm-900">{PROFIL_LABELS.famille_nombreuse}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-base">{PROFIL_EMOJIS.investisseur}</span>
