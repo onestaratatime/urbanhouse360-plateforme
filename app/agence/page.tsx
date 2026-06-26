@@ -177,9 +177,13 @@ export default async function AgencePage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        acquereur.source === 'direct'
+                        acquereur.source === 'formulaire'
                           ? 'bg-blue-100 text-blue-800'
-                          : 'bg-purple-100 text-purple-800'
+                          : acquereur.source === 'agence'
+                          ? 'bg-purple-100 text-purple-800'
+                          : acquereur.source === 'claude_code'
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-gray-100 text-gray-800'
                       }`}>
                         {acquereur.source}
                       </span>

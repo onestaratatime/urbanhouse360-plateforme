@@ -81,15 +81,15 @@ function generateTestAcquereur(index: number) {
 
   // Type de projet
   const typesProjets = ['residence_principale', 'residence_secondaire', 'investissement'] as const;
-  const type_projet = randomItem(typesProjets);
+  const type_projet = randomItem([...typesProjets]);
 
   // Nature du projet
   const naturesProjet = ['primo_accedant', 'deuxieme_achat', 'investisseur', 'autre'] as const;
-  const nature_projet = random(0, 10) > 3 ? randomItem(naturesProjet) : undefined;
+  const nature_projet = random(0, 10) > 3 ? randomItem([...naturesProjet]) : undefined;
 
   // Timing
   const timings = ['court_terme', 'moyen_terme', 'long_terme'] as const;
-  const timing = randomItem(timings);
+  const timing = randomItem([...timings]);
 
   // Types de bien (1 à 2)
   const typesBien = ['appartement', 'maison', 'terrain'] as const;
@@ -98,7 +98,7 @@ function generateTestAcquereur(index: number) {
 
   // Profil
   const profils = ['individuel', 'couple', 'famille', 'investisseur', 'residence_secondaire'] as const;
-  const profil = randomItem(profils);
+  const profil = randomItem([...profils]);
 
   // Surface (50 à 200 m²)
   const surface_min = random(0, 10) > 2 ? random(5, 20) * 10 : undefined;
