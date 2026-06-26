@@ -53,6 +53,7 @@ export interface AcquereurComplet {
   criteres_principaux_autre?: string;
   criteres_secondaires?: string;
   description_projet?: string;
+  phrase_accroche?: string;
 }
 
 // Interface publique anonymisée d'un acquéreur
@@ -65,6 +66,7 @@ export interface AcquereurPublic {
 
   // Localisation
   quartiers: string[];
+  autre_localisation?: string;
 
   // Projet
   type_projet: TypeProjet;
@@ -82,6 +84,7 @@ export interface AcquereurPublic {
   criteres_principaux_autre?: string;
   criteres_secondaires?: string;
   description_projet?: string;
+  phrase_accroche?: string;
 }
 
 // Interface pour les ventes récentes
@@ -126,6 +129,7 @@ export interface FormulaireInscription {
   criteres_principaux_autre?: string;
   criteres_secondaires?: string;
   description_projet?: string;
+  phrase_accroche?: string;
 }
 
 // Labels pour l'affichage

@@ -120,11 +120,20 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
           >
             <Popup maxWidth={300} className="custom-popup">
               <div className="p-1">
-                <h3 className="font-bold text-lg mb-3 text-gray-900 border-b border-warm-200 pb-2">
+                <h3 className="font-bold text-lg mb-2 text-gray-900">
                   Acquéreur potentiel
                 </h3>
 
-                <div className="space-y-2 text-sm"  style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                {/* Phrase d'accroche humaine en premier */}
+                {marker.acquereur.phrase_accroche && (
+                  <div className="mb-3 p-2 bg-olive-50 rounded-lg border-l-4 border-olive-500">
+                    <p className="text-sm italic text-olive-800 font-medium">
+                      "{marker.acquereur.phrase_accroche}"
+                    </p>
+                  </div>
+                )}
+
+                <div className="space-y-2 text-sm border-t border-warm-200 pt-2"  style={{ maxHeight: '300px', overflowY: 'auto' }}>
                   <div>
                     <span className="font-semibold">Quartier :</span> {marker.quartier.nom}
                   </div>
