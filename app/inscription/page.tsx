@@ -249,6 +249,31 @@ export default function InscriptionPage() {
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900">Votre projet</h2>
 
+              {/* Phrase d'accroche - DÉPLACÉE ICI */}
+              <div className="bg-olive-50 border border-olive-300 rounded-lg p-4">
+                <label className="block text-sm font-semibold text-olive-800 mb-2">
+                  Phrase d'accroche de votre recherche <span className="text-olive-600">(optionnel mais recommandé)</span>
+                </label>
+                <p className="text-xs text-olive-700 mb-3 leading-relaxed">
+                  Cette phrase sera visible par les propriétaires sur la carte. Elle donne une dimension humaine à votre recherche.
+                  <br /><strong>Exemple :</strong> "Couple expatrié, achat immédiat pour retour fin 2025 à Toulouse"
+                  <br /><strong>⚠️ Ne mettez aucune donnée personnelle</strong> (nom, email, téléphone)
+                </p>
+                <textarea
+                  value={formData.phrase_accroche}
+                  onChange={e => setFormData({ ...formData, phrase_accroche: e.target.value })}
+                  rows={2}
+                  maxLength={150}
+                  className="w-full px-4 py-2 border-2 border-olive-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-olive-500 bg-white"
+                  placeholder="Ex: Couple expatrié, achat immédiat pour retour fin 2025 à Toulouse"
+                />
+                {formData.phrase_accroche && (
+                  <p className="text-xs text-olive-600 mt-1">
+                    {formData.phrase_accroche.length}/150 caractères
+                  </p>
+                )}
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
                   Type de projet <span className="text-red-500">*</span>
@@ -456,31 +481,6 @@ export default function InscriptionPage() {
                   className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                   placeholder="Ex: Maison familiale, partie professionnelle, gîte..."
                 />
-              </div>
-
-              {/* Phrase d'accroche */}
-              <div className="bg-olive-50 border border-olive-300 rounded-lg p-4">
-                <label className="block text-sm font-semibold text-olive-800 mb-2">
-                  Phrase d'accroche de votre recherche <span className="text-olive-600">(optionnel mais recommandé)</span>
-                </label>
-                <p className="text-xs text-olive-700 mb-3 leading-relaxed">
-                  Cette phrase sera visible par les propriétaires sur la carte. Elle donne une dimension humaine à votre recherche.
-                  <br /><strong>Exemple :</strong> "Couple expatrié, achat immédiat pour retour fin 2025 à Toulouse"
-                  <br /><strong>⚠️ Ne mettez aucune donnée personnelle</strong> (nom, email, téléphone)
-                </p>
-                <textarea
-                  value={formData.phrase_accroche}
-                  onChange={e => setFormData({ ...formData, phrase_accroche: e.target.value })}
-                  rows={2}
-                  maxLength={150}
-                  className="w-full px-4 py-2 border-2 border-olive-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-olive-500 bg-white"
-                  placeholder="Ex: Couple expatrié, achat immédiat pour retour fin 2025 à Toulouse"
-                />
-                {formData.phrase_accroche && (
-                  <p className="text-xs text-olive-600 mt-1">
-                    {formData.phrase_accroche.length}/150 caractères
-                  </p>
-                )}
               </div>
             </div>
           )}
