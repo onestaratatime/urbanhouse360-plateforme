@@ -43,3 +43,4 @@ next-env.d.ts
 # Local Netlify folder
 .netlify
 .gstack/
+GUIDE_VARIABLES_ENVIRONNEMENT.md

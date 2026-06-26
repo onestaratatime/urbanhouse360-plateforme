@@ -164,11 +164,11 @@ export default function MapComponent({ acquereurs, compact = false }: MapCompone
                     </div>
                   )}
 
-                  {marker.acquereur.criteres_indispensables && marker.acquereur.criteres_indispensables.length > 0 && (
+                  {marker.acquereur.criteres_principaux && marker.acquereur.criteres_principaux.length > 0 && (
                     <div>
                       <span className="font-semibold">Critères indispensables :</span><br />
-                      {marker.acquereur.criteres_indispensables.join(', ')}
-                      {marker.acquereur.criteres_indispensables_autre && `, ${marker.acquereur.criteres_indispensables_autre}`}
+                      {marker.acquereur.criteres_principaux.join(', ')}
+                      {marker.acquereur.criteres_principaux_autre && `, ${marker.acquereur.criteres_principaux_autre}`}
                     </div>
                   )}
 

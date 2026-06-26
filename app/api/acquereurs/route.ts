@@ -52,8 +52,8 @@ export async function POST(request: Request) {
         surface_min: data.surface_min || null,
         pieces_min: data.pieces_min || null,
         budget_max: data.budget_max || null,
-        criteres_indispensables: data.criteres_indispensables || null,
-        criteres_indispensables_autre: data.criteres_indispensables_autre || null,
+        criteres_principaux: data.criteres_principaux || null,
+        criteres_principaux_autre: data.criteres_principaux_autre || null,
         criteres_secondaires: data.criteres_secondaires || null,
         description_projet: data.description_projet || null,
         actif: true

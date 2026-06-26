@@ -10,7 +10,7 @@ import {
   TYPE_PROJET_LABELS,
   TIMING_LABELS,
   TYPE_BIEN_LABELS,
-  CRITERES_INDISPENSABLES_OPTIONS,
+  CRITERES_PRINCIPAUX_OPTIONS,
   PIECES_OPTIONS,
   FormulaireInscription
 } from '@/lib/types';
@@ -35,8 +35,8 @@ export default function NouveauAcquereurPage() {
     surface_min: undefined,
     pieces_min: undefined,
     budget_max: undefined,
-    criteres_indispensables: [],
-    criteres_indispensables_autre: '',
+    criteres_principaux: [],
+    criteres_principaux_autre: '',
     criteres_secondaires: '',
     description_projet: ''
   });
@@ -285,16 +285,16 @@ export default function NouveauAcquereurPage() {
                 Critères indispensables
               </label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {CRITERES_INDISPENSABLES_OPTIONS.map(opt => (
+                {CRITERES_PRINCIPAUX_OPTIONS.map(opt => (
                   <label key={opt.value} className="flex items-center space-x-2">
                     <input
                       type="checkbox"
-                      checked={formData.criteres_indispensables?.includes(opt.value)}
+                      checked={formData.criteres_principaux?.includes(opt.value)}
                       onChange={e => {
                         const criteres = e.target.checked
-                          ? [...(formData.criteres_indispensables || []), opt.value]
-                          : (formData.criteres_indispensables || []).filter(c => c !== opt.value);
-                        setFormData({ ...formData, criteres_indispensables: criteres });
+                          ? [...(formData.criteres_principaux || []), opt.value]
+                          : (formData.criteres_principaux || []).filter(c => c !== opt.value);
+                        setFormData({ ...formData, criteres_principaux: criteres });
                       }}
                       className="w-4 h-4 text-blue-600 rounded"
                     />
@@ -310,8 +310,8 @@ export default function NouveauAcquereurPage() {
               </label>
               <input
                 type="text"
-                value={formData.criteres_indispensables_autre}
-                onChange={e => setFormData({ ...formData, criteres_indispensables_autre: e.target.value })}
+                value={formData.criteres_principaux_autre}
+                onChange={e => setFormData({ ...formData, criteres_principaux_autre: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               />
             </div>
