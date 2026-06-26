@@ -2,15 +2,19 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import QuartiersSelector from '@/components/QuartiersSelector';
+import LocalisationSelector from '@/components/LocalisationSelector';
 import {
   TypeProjet,
+  NatureProjet,
   Timing,
   TypeBien,
+  Profil,
   CriterePrincipal,
   TYPE_PROJET_LABELS,
+  NATURE_PROJET_LABELS,
   TIMING_LABELS,
   TYPE_BIEN_LABELS,
+  PROFIL_LABELS,
   CRITERES_PRINCIPAUX_OPTIONS,
   PIECES_OPTIONS,
   FormulaireInscription
@@ -31,6 +35,7 @@ export default function InscriptionPage() {
     consentement_contact: false,
     quartiers: [],
     precision_localisation: '',
+    autre_localisation: '',
     type_projet: 'residence_principale',
     timing: 'moyen_terme',
     types_bien: [],
@@ -118,10 +123,12 @@ export default function InscriptionPage() {
       case 1:
         return formData.quartiers.length > 0;
       case 2:
-        return formData.types_bien.length > 0;
+        return true; // Profil selection is optional, can be skipped
       case 3:
-        return true;
+        return formData.types_bien.length > 0;
       case 4:
+        return true; // Critères are all optional
+      case 5:
         return formData.prenom && formData.email && formData.telephone && formData.consentement_contact;
       default:
         return false;
@@ -147,7 +154,7 @@ export default function InscriptionPage() {
         {/* Progress bar */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-2">
-            {[1, 2, 3, 4].map(s => (
+            {[1, 2, 3, 4, 5].map(s => (
               <div
                 key={s}
                 className={`flex-1 h-2 mx-1 rounded-full transition-colors ${
@@ -158,7 +165,8 @@ export default function InscriptionPage() {
           </div>
           <div className="flex justify-between text-xs text-gray-600">
             <span>Localisation</span>
-            <span>Type de bien</span>
+            <span>Profil</span>
+            <span>Projet</span>
             <span>Critères</span>
             <span>Coordonnées</span>
           </div>
@@ -179,11 +187,13 @@ export default function InscriptionPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Sélectionnez un ou plusieurs quartiers <span className="text-red-500">*</span>
+                  Sélectionnez un ou plusieurs quartiers ou villes <span className="text-red-500">*</span>
                 </label>
-                <QuartiersSelector
-                  selectedQuartiers={formData.quartiers}
+                <LocalisationSelector
+                  selectedLocalisations={formData.quartiers}
                   onChange={quartiers => setFormData({ ...formData, quartiers })}
+                  autreLocalisation={formData.autre_localisation}
+                  onAutreLocalisationChange={value => setFormData({ ...formData, autre_localisation: value })}
                 />
                 {fieldErrors.quartiers && (
                   <p className="mt-2 text-sm text-red-600">⚠️ {fieldErrors.quartiers}</p>
@@ -205,8 +215,36 @@ export default function InscriptionPage() {
             </div>
           )}
 
-          {/* Step 2: Type de bien */}
+          {/* Step 2: Profil */}
           {step === 2 && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-900">Votre profil</h2>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Quel est votre profil ? <span className="text-red-500">*</span>
+                </label>
+                <div className="space-y-2">
+                  {Object.entries(PROFIL_LABELS).map(([value, label]) => (
+                    <label key={value} className="flex items-center space-x-3 p-3 border border-warm-300 rounded-lg cursor-pointer hover:bg-warm-50">
+                      <input
+                        type="radio"
+                        name="profil"
+                        value={value}
+                        checked={formData.profil === value}
+                        onChange={e => setFormData({ ...formData, profil: e.target.value as Profil })}
+                        className="w-4 h-4 text-brick-600 focus:ring-2 focus:ring-brick-500"
+                      />
+                      <span>{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Projet */}
+          {step === 3 && (
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900">Votre projet</h2>
 
@@ -223,6 +261,27 @@ export default function InscriptionPage() {
                         value={value}
                         checked={formData.type_projet === value}
                         onChange={e => setFormData({ ...formData, type_projet: e.target.value as TypeProjet })}
+                        className="w-4 h-4 text-brick-600 focus:ring-2 focus:ring-brick-500"
+                      />
+                      <span>{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Nature du projet — optionnel
+                </label>
+                <div className="space-y-2">
+                  {Object.entries(NATURE_PROJET_LABELS).map(([value, label]) => (
+                    <label key={value} className="flex items-center space-x-3 p-3 border border-warm-300 rounded-lg cursor-pointer hover:bg-warm-50">
+                      <input
+                        type="radio"
+                        name="nature_projet"
+                        value={value}
+                        checked={formData.nature_projet === value}
+                        onChange={e => setFormData({ ...formData, nature_projet: e.target.value as NatureProjet })}
                         className="w-4 h-4 text-brick-600 focus:ring-2 focus:ring-brick-500"
                       />
                       <span>{label}</span>
@@ -286,8 +345,8 @@ export default function InscriptionPage() {
             </div>
           )}
 
-          {/* Step 3: Critères */}
-          {step === 3 && (
+          {/* Step 4: Critères */}
+          {step === 4 && (
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900">Vos critères</h2>
 
@@ -400,8 +459,8 @@ export default function InscriptionPage() {
             </div>
           )}
 
-          {/* Step 4: Coordonnées */}
-          {step === 4 && (
+          {/* Step 5: Coordonnées */}
+          {step === 5 && (
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900">Vos coordonnées</h2>
 
@@ -502,7 +561,7 @@ export default function InscriptionPage() {
               <div />
             )}
 
-            {step < 4 ? (
+            {step < 5 ? (
               <button
                 type="button"
                 onClick={() => setStep(step + 1)}

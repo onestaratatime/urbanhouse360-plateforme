@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { AcquereurPublic } from '@/lib/types';
 import MapWrapper from '@/components/MapWrapper';
+import FormulaireProprietaire from '@/components/FormulaireProprietaire';
 import Link from 'next/link';
 
 async function getAcquereurs(): Promise<AcquereurPublic[]> {
@@ -23,9 +24,9 @@ export default async function CartePage() {
   const acquereurs = await getAcquereurs();
 
   return (
-    <div className="relative h-screen">
-      {/* Header */}
-      <div className="absolute top-0 left-0 right-0 z-[1000] bg-white shadow-md border-b border-warm-200">
+    <div className="h-screen flex flex-col overflow-hidden">
+      {/* Header fixe */}
+      <div className="flex-shrink-0 bg-white shadow-md border-b border-warm-200 z-[1000]">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div>
             <Link href="/" className="text-xl font-bold text-gray-900 hover:text-brick-600 transition-colors">
@@ -45,28 +46,34 @@ export default async function CartePage() {
         </div>
       </div>
 
-      {/* Carte */}
-      <div className="pt-20 h-screen">
-        <MapWrapper acquereurs={acquereurs} compact={false} />
-      </div>
-
-      {/* Message si aucun acquéreur */}
-      {acquereurs.length === 0 && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-8 text-center z-[1000] border border-warm-200">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Soyez le premier !
-          </h2>
-          <p className="text-warm-800 mb-6">
-            Aucun acquéreur n'est encore inscrit. Soyez le premier à apparaître sur la carte.
-          </p>
-          <Link
-            href="/inscription"
-            className="inline-block px-8 py-3 bg-brick-500 text-white rounded-lg hover:bg-brick-600 font-medium shadow-md hover:shadow-lg transition-all"
-          >
-            M'inscrire gratuitement
-          </Link>
+      {/* Zone principale : Carte + Formulaire */}
+      <div className="flex-1 relative overflow-hidden">
+        {/* Carte en pleine hauteur */}
+        <div className="absolute inset-0">
+          <MapWrapper acquereurs={acquereurs} compact={false} />
         </div>
-      )}
+
+        {/* Formulaire discret en bas à droite */}
+        <FormulaireProprietaire />
+
+        {/* Message si aucun acquéreur */}
+        {acquereurs.length === 0 && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-8 text-center z-[900] border border-warm-200">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Soyez le premier !
+            </h2>
+            <p className="text-warm-800 mb-6">
+              Aucun acquéreur n'est encore inscrit. Soyez le premier à apparaître sur la carte.
+            </p>
+            <Link
+              href="/inscription"
+              className="inline-block px-8 py-3 bg-brick-500 text-white rounded-lg hover:bg-brick-600 font-medium shadow-md hover:shadow-lg transition-all"
+            >
+              M'inscrire gratuitement
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

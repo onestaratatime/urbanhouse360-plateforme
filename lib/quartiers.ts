@@ -308,10 +308,304 @@ export const QUARTIERS_PAR_SECTEUR = QUARTIERS.reduce((acc, quartier) => {
 
 // Fonction utilitaire pour récupérer un quartier par slug
 export function getQuartierBySlug(slug: string): Quartier | undefined {
-  return QUARTIERS.find(q => q.slug === slug);
+  return TOUTES_LOCALISATIONS.find(q => q.slug === slug);
 }
 
 // Fonction pour générer un jitter déterministe basé sur l'ID
+// Villes périphériques de Toulouse (50km autour)
+export const VILLES_PERIPHERIQUES: Quartier[] = [
+  // Ouest (10-20km)
+  {
+    slug: 'blagnac',
+    nom: 'Blagnac',
+    secteur: 'Périphérie Ouest',
+    coords: [43.6364, 1.3892]
+  },
+  {
+    slug: 'colomiers',
+    nom: 'Colomiers',
+    secteur: 'Périphérie Ouest',
+    coords: [43.6107, 1.3343]
+  },
+  {
+    slug: 'tournefeuille',
+    nom: 'Tournefeuille',
+    secteur: 'Périphérie Ouest',
+    coords: [43.5847, 1.3437]
+  },
+  {
+    slug: 'plaisance-du-touch',
+    nom: 'Plaisance-du-Touch',
+    secteur: 'Périphérie Ouest',
+    coords: [43.5628, 1.2989]
+  },
+  {
+    slug: 'cornebarrieu',
+    nom: 'Cornebarrieu',
+    secteur: 'Périphérie Ouest',
+    coords: [43.6506, 1.3286]
+  },
+  {
+    slug: 'mondonville',
+    nom: 'Mondonville',
+    secteur: 'Périphérie Ouest',
+    coords: [43.6714, 1.2842]
+  },
+
+  // Sud-Ouest (10-30km)
+  {
+    slug: 'cugnaux',
+    nom: 'Cugnaux',
+    secteur: 'Périphérie Sud-Ouest',
+    coords: [43.5367, 1.3453]
+  },
+  {
+    slug: 'villeneuve-tolosane',
+    nom: 'Villeneuve-Tolosane',
+    secteur: 'Périphérie Sud-Ouest',
+    coords: [43.5253, 1.3392]
+  },
+  {
+    slug: 'frouzins',
+    nom: 'Frouzins',
+    secteur: 'Périphérie Sud-Ouest',
+    coords: [43.5189, 1.3306]
+  },
+  {
+    slug: 'seysses',
+    nom: 'Seysses',
+    secteur: 'Périphérie Sud-Ouest',
+    coords: [43.4983, 1.3128]
+  },
+
+  // Est (5-20km)
+  {
+    slug: 'balma',
+    nom: 'Balma',
+    secteur: 'Périphérie Est',
+    coords: [43.6111, 1.4989]
+  },
+  {
+    slug: 'quint-fonsegrives',
+    nom: 'Quint-Fonsegrives',
+    secteur: 'Périphérie Est',
+    coords: [43.5886, 1.5208]
+  },
+  {
+    slug: 'pins-justaret',
+    nom: 'Pins-Justaret',
+    secteur: 'Périphérie Est',
+    coords: [43.4992, 1.4414]
+  },
+
+  // Sud-Est (10-25km)
+  {
+    slug: 'ramonville-saint-agne',
+    nom: 'Ramonville-Saint-Agne',
+    secteur: 'Périphérie Sud-Est',
+    coords: [43.5461, 1.4733]
+  },
+  {
+    slug: 'saint-orens-de-gameville',
+    nom: 'Saint-Orens-de-Gameville',
+    secteur: 'Périphérie Sud-Est',
+    coords: [43.5514, 1.5342]
+  },
+  {
+    slug: 'labege',
+    nom: 'Labège',
+    secteur: 'Périphérie Sud-Est',
+    coords: [43.5405, 1.5144]
+  },
+  {
+    slug: 'castanet-tolosan',
+    nom: 'Castanet-Tolosan',
+    secteur: 'Périphérie Sud-Est',
+    coords: [43.5156, 1.4981]
+  },
+  {
+    slug: 'escalquens',
+    nom: 'Escalquens',
+    secteur: 'Périphérie Sud-Est',
+    coords: [43.5192, 1.5631]
+  },
+  {
+    slug: 'auzeville-tolosane',
+    nom: 'Auzeville-Tolosane',
+    secteur: 'Périphérie Sud-Est',
+    coords: [43.5281, 1.4842]
+  },
+  {
+    slug: 'pechbonnieu',
+    nom: 'Pechbonnieu',
+    secteur: 'Périphérie Sud-Est',
+    coords: [43.7031, 1.4561]
+  },
+
+  // Nord-Est (10-20km)
+  {
+    slug: 'l-union',
+    nom: 'L\'Union',
+    secteur: 'Périphérie Nord-Est',
+    coords: [43.6594, 1.4853]
+  },
+  {
+    slug: 'launaguet',
+    nom: 'Launaguet',
+    secteur: 'Périphérie Nord-Est',
+    coords: [43.6778, 1.4536]
+  },
+  {
+    slug: 'castelginest',
+    nom: 'Castelginest',
+    secteur: 'Périphérie Nord-Est',
+    coords: [43.6939, 1.4300]
+  },
+
+  // Nord (10-20km)
+  {
+    slug: 'aucamville',
+    nom: 'Aucamville',
+    secteur: 'Périphérie Nord',
+    coords: [43.6711, 1.4289]
+  },
+  {
+    slug: 'fenouillet',
+    nom: 'Fenouillet',
+    secteur: 'Périphérie Nord',
+    coords: [43.6833, 1.3972]
+  },
+  {
+    slug: 'saint-jory',
+    nom: 'Saint-Jory',
+    secteur: 'Périphérie Nord',
+    coords: [43.7578, 1.3639]
+  },
+  {
+    slug: 'gratentour',
+    nom: 'Gratentour',
+    secteur: 'Périphérie Nord',
+    coords: [43.7208, 1.4256]
+  },
+  {
+    slug: 'saint-alban',
+    nom: 'Saint-Alban',
+    secteur: 'Périphérie Nord',
+    coords: [43.6914, 1.4139]
+  },
+
+  // Nord-Ouest (10-20km)
+  {
+    slug: 'saint-jean',
+    nom: 'Saint-Jean',
+    secteur: 'Périphérie Nord-Ouest',
+    coords: [43.6639, 1.5050]
+  },
+  {
+    slug: 'gagnac-sur-garonne',
+    nom: 'Gagnac-sur-Garonne',
+    secteur: 'Périphérie Nord-Ouest',
+    coords: [43.7000, 1.3667]
+  },
+  {
+    slug: 'seilh',
+    nom: 'Seilh',
+    secteur: 'Périphérie Nord-Ouest',
+    coords: [43.6969, 1.3567]
+  },
+
+  // Sud (15-30km)
+  {
+    slug: 'portet-sur-garonne',
+    nom: 'Portet-sur-Garonne',
+    secteur: 'Périphérie Sud',
+    coords: [43.5228, 1.4069]
+  },
+  {
+    slug: 'muret',
+    nom: 'Muret',
+    secteur: 'Périphérie Sud',
+    coords: [43.4644, 1.3267]
+  },
+  {
+    slug: 'roques',
+    nom: 'Roques',
+    secteur: 'Périphérie Sud',
+    coords: [43.5083, 1.3642]
+  },
+  {
+    slug: 'pinsaguel',
+    nom: 'Pinsaguel',
+    secteur: 'Périphérie Sud',
+    coords: [43.5058, 1.3928]
+  },
+
+  // Plus loin (20-50km) - Villes importantes
+  {
+    slug: 'leguevin',
+    nom: 'Léguevin',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.5989, 1.2328]
+  },
+  {
+    slug: 'pibrac',
+    nom: 'Pibrac',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.6192, 1.2867]
+  },
+  {
+    slug: 'aussonne',
+    nom: 'Aussonne',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.6833, 1.3167]
+  },
+  {
+    slug: 'saint-lys',
+    nom: 'Saint-Lys',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.5144, 1.1756]
+  },
+  {
+    slug: 'montgiscard',
+    nom: 'Montgiscard',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.4558, 1.5883]
+  },
+  {
+    slug: 'verfeil',
+    nom: 'Verfeil',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.6564, 1.6539]
+  },
+  {
+    slug: 'grenade',
+    nom: 'Grenade',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.7731, 1.2919]
+  },
+  {
+    slug: 'revel',
+    nom: 'Revel',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.4578, 2.0047]
+  },
+  {
+    slug: 'carbonne',
+    nom: 'Carbonne',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.2972, 1.2244]
+  },
+  {
+    slug: 'auterive',
+    nom: 'Auterive',
+    secteur: 'Périphérie 20-50km',
+    coords: [43.3500, 1.4744]
+  }
+];
+
+// Toutes les localisations (quartiers + villes)
+export const TOUTES_LOCALISATIONS = [...QUARTIERS, ...VILLES_PERIPHERIQUES];
+
 export function getJitteredCoords(
   coords: [number, number],
   id: string,

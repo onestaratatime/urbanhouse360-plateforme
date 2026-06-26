@@ -42,6 +42,7 @@ export async function POST(request: Request) {
     const { data: insertedData, error } = await supabaseAdmin
       .from('acquereurs')
       .insert({
+        test: false,
         source: 'agence',
         prenom: data.prenom,
         email: data.email,

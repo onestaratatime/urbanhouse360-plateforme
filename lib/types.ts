@@ -4,7 +4,7 @@ export type TypeProjet = 'residence_principale' | 'residence_secondaire' | 'inve
 export type NatureProjet = 'primo_accedant' | 'deuxieme_achat' | 'investisseur' | 'autre';
 export type Timing = 'court_terme' | 'moyen_terme' | 'long_terme';
 export type TypeBien = 'appartement' | 'maison' | 'terrain';
-export type Source = 'direct' | 'agence';
+export type Source = 'formulaire' | 'agence' | 'claude_code' | 'import';
 export type Profil = 'individuel' | 'couple' | 'famille' | 'investisseur' | 'residence_secondaire';
 
 export type CriterePrincipal =
@@ -22,6 +22,7 @@ export type CriterePrincipal =
 export interface AcquereurComplet {
   id: string;
   created_at: string;
+  test: boolean;
   source: Source;
   actif: boolean;
 
@@ -34,6 +35,7 @@ export interface AcquereurComplet {
   // Localisation
   quartiers: string[];
   precision_localisation?: string;
+  autre_localisation?: string;
 
   // Projet
   type_projet: TypeProjet;
@@ -58,6 +60,8 @@ export interface AcquereurComplet {
 export interface AcquereurPublic {
   id: string;
   created_at: string;
+  test: boolean;
+  source: Source;
 
   // Localisation
   quartiers: string[];
@@ -104,6 +108,7 @@ export interface FormulaireInscription {
   // Localisation
   quartiers: string[];
   precision_localisation?: string;
+  autre_localisation?: string;
 
   // Projet
   type_projet: TypeProjet;

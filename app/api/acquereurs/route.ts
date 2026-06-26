@@ -39,7 +39,8 @@ export async function POST(request: Request) {
     const { data: insertedData, error } = await supabase
       .from('acquereurs')
       .insert({
-        source: 'direct',
+        test: false,
+        source: 'formulaire',
         prenom: data.prenom,
         email: data.email,
         telephone: data.telephone,
