@@ -45,8 +45,8 @@ export default function FormulaireProprietaire() {
   };
 
   return (
-    <div className="absolute bottom-6 right-6 w-96 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-warm-200 p-6 z-[1000]">
-      <div className="space-y-4">
+    <div className="absolute bottom-6 right-6 w-96 max-h-[calc(100vh-100px)] overflow-y-auto bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-warm-200 p-5 z-[1000]">
+      <div className="space-y-3">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">
             Propriétaire ?
@@ -56,8 +56,8 @@ export default function FormulaireProprietaire() {
           </p>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-          <p className="text-xs text-blue-900">
+        <div className="bg-green-50 border border-green-200 rounded-lg p-2.5">
+          <p className="text-xs text-green-900 leading-relaxed">
             ✓ Sans engagement<br />
             ✓ Données strictement confidentielles<br />
             ✓ Accès immédiat aux acquéreurs à proximité
@@ -70,13 +70,13 @@ export default function FormulaireProprietaire() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-2.5">
           <input
             type="text"
             placeholder="Adresse du bien"
             value={formData.adresse}
             onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
-            className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+            className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
             required
           />
           <div className="grid grid-cols-2 gap-2">
@@ -85,7 +85,7 @@ export default function FormulaireProprietaire() {
               placeholder="Prénom"
               value={formData.prenom}
               onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
-              className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+              className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
               required
             />
             <input
@@ -93,7 +93,7 @@ export default function FormulaireProprietaire() {
               placeholder="Nom"
               value={formData.nom}
               onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
-              className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+              className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
               required
             />
           </div>
@@ -102,7 +102,7 @@ export default function FormulaireProprietaire() {
             placeholder="Email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+            className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
             required
           />
           <input
@@ -110,20 +110,20 @@ export default function FormulaireProprietaire() {
             placeholder="Téléphone"
             value={formData.telephone}
             onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
-            className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-brick-500 focus:border-transparent"
+            className="w-full px-3 py-2 text-sm border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
             required
           />
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-4 py-2.5 bg-brick-500 text-white rounded-lg hover:bg-brick-600 font-medium shadow-md hover:shadow-lg transition-all text-sm disabled:bg-warm-300 disabled:cursor-not-allowed"
+            className="w-full px-4 py-3 bg-olive-600 text-white rounded-lg hover:bg-olive-700 font-semibold shadow-lg hover:shadow-xl transition-all text-sm disabled:bg-warm-300 disabled:cursor-not-allowed"
           >
             {loading ? 'Envoi en cours...' : 'Voir les acquéreurs à proximité'}
           </button>
 
-          <p className="text-xs text-warm-600 text-center">
-            Vos informations ne seront jamais partagées
+          <p className="text-xs text-warm-600 text-center pt-1">
+            🔒 Vos informations ne seront jamais partagées
           </p>
         </form>
       </div>
