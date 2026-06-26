@@ -85,9 +85,9 @@ export default async function AgencePage() {
             </p>
           </div>
           <div className="bg-white rounded-lg shadow p-4">
-            <p className="text-sm text-gray-600">Direct</p>
+            <p className="text-sm text-gray-600">Formulaire</p>
             <p className="text-2xl font-bold text-blue-600">
-              {acquereurs.filter(a => a.source === 'direct').length}
+              {acquereurs.filter(a => a.source === 'formulaire').length}
             </p>
           </div>
           <div className="bg-white rounded-lg shadow p-4">
