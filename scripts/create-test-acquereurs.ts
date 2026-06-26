@@ -141,32 +141,77 @@ function generateTestAcquereur(index: number) {
     'Terrain constructible viabilisé'
   ];
 
-  // Phrases d'accroche humaines
-  const phrasesAccroche = [
-    'Couple expatrié, achat immédiat pour retour fin 2025 à Toulouse',
-    'Jeune famille, recherche maison avec jardin pour septembre',
-    'Primo-accédant, projet sur 6-12 mois, proche des écoles',
-    'Mutation professionnelle, recherche appartement pour rentrée',
-    'Couple retraité, achat résidence principale calme et accessible',
-    'Investisseur, recherche bien rentable secteur étudiant',
-    'Retour région natale, projet familial pour 2026',
-    'Télétravail, recherche maison avec bureau et extérieur',
-    'Agrandissement famille, besoin T4-T5 rapidement',
-    'Jeune actif, premier achat proche transports',
-    'Couple avec enfants, projet maison quartier calme',
-    'Investissement locatif meublé secteur hypercentre',
-    'Changement de vie, recherche bien avec caractère',
-    'Rapprochement travail, appartement récent souhaité',
-    'Projet résidence secondaire pour week-ends famille',
-    'Couple trentenaire, premier bien avec extérieur',
-    'Mutation Toulouse, recherche T3 moderne fin année',
-    'Investissement pinel, livraison 2026 acceptée',
-    'Recomposition familiale, besoin grand logement',
-    'Installation Toulouse, projet immédiat après location',
-    'Achat pied-à-terre, déplacements pros fréquents',
-    'Jeune couple, mariage prévu, achat avant été',
-    'Retour France après expatriation, projet urgent'
-  ];
+  // Générer une phrase d'accroche adaptée au profil et timing
+  function genererPhraseAccroche(profil: string, timing: string, type_projet: string): string {
+    const phrasesParProfil: Record<string, string[]> = {
+      'individuel': [
+        'Jeune actif, premier achat',
+        'Télétravail, besoin espace calme',
+        'Célibataire, projet personnel',
+        'Primo-accédant motivé',
+        'Installation Toulouse'
+      ],
+      'couple': [
+        'Couple expatrié, retour France',
+        'Jeune couple, projet de vie',
+        'Couple trentenaire, premier achat',
+        'Mutation professionnelle couple',
+        'Rapprochement familial'
+      ],
+      'famille': [
+        'Famille, agrandissement nécessaire',
+        'Retour région natale, 2 enfants',
+        'Jeune famille, projet maison',
+        'Recomposition familiale',
+        'Famille, proximité écoles importante'
+      ],
+      'investisseur': [
+        'Investisseur patrimonial',
+        'Projet locatif étudiant',
+        'Investissement déficit foncier',
+        'Constitution patrimoine locatif',
+        'Placement immobilier rentable'
+      ],
+      'residence_secondaire': [
+        'Résidence secondaire week-ends',
+        'Pied-à-terre déplacements pros',
+        'Maison vacances famille',
+        'Projet résidence campagne',
+        'Escapades week-end Toulouse'
+      ]
+    };
+
+    const phrasesParTiming: Record<string, string[]> = {
+      'court_terme': [
+        'achat immédiat',
+        'recherche urgente',
+        'projet très rapide',
+        'besoin immédiat',
+        'disponible de suite'
+      ],
+      'moyen_terme': [
+        'projet 6-12 mois',
+        'achat rentrée 2026',
+        'horizon fin année',
+        'projet automne',
+        'concrétisation prochains mois'
+      ],
+      'long_terme': [
+        'projet 2026-2027',
+        'horizon 12-18 mois',
+        'préparation long terme',
+        'réflexion avancée',
+        'projet futur structuré'
+      ]
+    };
+
+    const basePhrase = randomItem(phrasesParProfil[profil]);
+    const timingPhrase = randomItem(phrasesParTiming[timing]);
+
+    return `${basePhrase}, ${timingPhrase}`;
+  }
+
+  const phrase_accroche = random(0, 10) > 1 ? genererPhraseAccroche(profil, timing, type_projet) : null; // 90% ont une phrase
 
   return {
     test: true,
@@ -189,7 +234,7 @@ function generateTestAcquereur(index: number) {
     criteres_principaux_autre: random(0, 10) > 7 ? 'Double vitrage, fibre optique' : null,
     criteres_secondaires: random(0, 10) > 5 ? randomItem(descriptions) : null,
     description_projet: randomItem(descriptions),
-    phrase_accroche: random(0, 10) > 2 ? randomItem(phrasesAccroche) : null, // 80% ont une phrase
+    phrase_accroche: phrase_accroche,
     actif: true
   };
 }
