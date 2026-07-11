@@ -240,61 +240,10 @@ export const QUARTIERS: Quartier[] = [
     coords: [43.5895, 1.4085]
   },
 
-  // PÉRIPHÉRIE
-  {
-    slug: 'blagnac',
-    nom: 'Blagnac',
-    secteur: 'Périphérie',
-    coords: [43.6365, 1.3895]
-  },
-  {
-    slug: 'colomiers',
-    nom: 'Colomiers',
-    secteur: 'Périphérie',
-    coords: [43.6105, 1.3355]
-  },
-  {
-    slug: 'tournefeuille',
-    nom: 'Tournefeuille',
-    secteur: 'Périphérie',
-    coords: [43.5845, 1.3425]
-  },
-  {
-    slug: 'balma',
-    nom: 'Balma',
-    secteur: 'Périphérie',
-    coords: [43.6115, 1.4985]
-  },
-  {
-    slug: 'lunion',
-    nom: 'L\'Union',
-    secteur: 'Périphérie',
-    coords: [43.6545, 1.4825]
-  },
-  {
-    slug: 'ramonville-saint-agne',
-    nom: 'Ramonville-Saint-Agne',
-    secteur: 'Périphérie',
-    coords: [43.5445, 1.4745]
-  },
-  {
-    slug: 'saint-orens',
-    nom: 'Saint-Orens',
-    secteur: 'Périphérie',
-    coords: [43.5535, 1.5285]
-  },
-  {
-    slug: 'cugnaux',
-    nom: 'Cugnaux',
-    secteur: 'Périphérie',
-    coords: [43.5365, 1.3485]
-  },
-  {
-    slug: 'castanet-tolosan',
-    nom: 'Castanet-Tolosan',
-    secteur: 'Périphérie',
-    coords: [43.5155, 1.4985]
-  }
+  // Note : les villes de proche périphérie (Blagnac, Colomiers, Tournefeuille,
+  // Balma, Ramonville, Cugnaux, Castanet-Tolosan, Saint-Orens…) sont définies dans
+  // VILLES_PERIPHERIQUES avec un secteur plus précis (Ouest, Est, Sud-Est…).
+  // Ne pas les redupliquer ici : cela créerait des slugs en double.
 ];
 
 // Groupement par secteur pour l'affichage dans le formulaire
@@ -384,6 +333,12 @@ export const VILLES_PERIPHERIQUES: Quartier[] = [
     nom: 'Balma',
     secteur: 'Périphérie Est',
     coords: [43.6111, 1.4989]
+  },
+  {
+    slug: 'lunion',
+    nom: 'L\'Union',
+    secteur: 'Périphérie Est',
+    coords: [43.6545, 1.4825]
   },
   {
     slug: 'quint-fonsegrives',

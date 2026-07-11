@@ -153,7 +153,7 @@ const acquereursSeed = [
     email: 'laurent.rousseau@example.com',
     telephone: '06 89 01 23 45',
     consentement_contact: true,
-    quartiers: ['balma', 'lunion', 'saint-orens'],
+    quartiers: ['balma', 'lunion', 'saint-orens-de-gameville'],
     type_projet: 'residence_principale',
     timing: 'court_terme',
     types_bien: ['maison'],
