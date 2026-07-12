@@ -10,6 +10,15 @@ interface LocalisationSelectorProps {
   onAutreLocalisationChange?: (value: string) => void;
 }
 
+// Les localisations libres sont stockées dans une seule chaîne séparée par des virgules
+const parseAutres = (value: string): string[] =>
+  value
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean);
+
+const serializeAutres = (list: string[]): string => list.join(', ');
+
 export default function LocalisationSelector({
   selectedLocalisations,
   onChange,
@@ -20,6 +29,8 @@ export default function LocalisationSelector({
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [openSecteurs, setOpenSecteurs] = useState<Record<string, boolean>>({});
   const searchRef = useRef<HTMLDivElement>(null);
+
+  const autresLocalisations = useMemo(() => parseAutres(autreLocalisation), [autreLocalisation]);
 
   // Fermer le dropdown de suggestions au clic extérieur
   useEffect(() => {
@@ -70,11 +81,28 @@ export default function LocalisationSelector({
     setShowSuggestions(false);
   };
 
+  // Ajouter une localisation libre (non listée) depuis la barre de recherche
+  const addAutreLocalisation = () => {
+    if (!onAutreLocalisationChange) return;
+    const value = searchTerm.trim();
+    if (!value) return;
+    const exists = autresLocalisations.some(a => a.toLowerCase() === value.toLowerCase());
+    if (!exists) {
+      onAutreLocalisationChange(serializeAutres([...autresLocalisations, value]));
+    }
+    setSearchTerm('');
+    setShowSuggestions(false);
+  };
+
+  const removeAutreLocalisation = (value: string) => {
+    if (!onAutreLocalisationChange) return;
+    onAutreLocalisationChange(serializeAutres(autresLocalisations.filter(a => a !== value)));
+  };
+
   const toggleSecteur = (secteur: string) => {
     setOpenSecteurs(prev => ({ ...prev, [secteur]: !prev[secteur] }));
   };
 
-  // Nombre de sélections par secteur (pour le badge)
   const countInSecteur = (localisations: Quartier[]) =>
     localisations.filter(l => selectedLocalisations.includes(l.slug)).length;
 
@@ -84,14 +112,14 @@ export default function LocalisationSelector({
   const toggleAllSecteur = (localisations: Quartier[]) => {
     const slugs = localisations.map(l => l.slug);
     if (allSelectedInSecteur(localisations)) {
-      // Tout décocher dans ce secteur
       onChange(selectedLocalisations.filter(s => !slugs.includes(s)));
     } else {
-      // Tout cocher dans ce secteur
       const merged = new Set([...selectedLocalisations, ...slugs]);
       onChange(Array.from(merged));
     }
   };
+
+  const totalSelected = selectedLocalisations.length + autresLocalisations.length;
 
   return (
     <div className="space-y-4">
@@ -105,6 +133,17 @@ export default function LocalisationSelector({
             setShowSuggestions(true);
           }}
           onFocus={() => setShowSuggestions(true)}
+          onKeyDown={(e) => {
+            // Entrée = ajouter la localisation libre s'il n'y a aucun résultat
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              if (suggestions.length === 0 && searchTerm.trim()) {
+                addAutreLocalisation();
+              } else if (suggestions.length > 0) {
+                addLocalisation(suggestions[0].slug);
+              }
+            }
+          }}
           placeholder="Tapez le nom d'un quartier ou d'une ville…"
           className="w-full px-4 py-3 border-2 border-olive-400 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-olive-500 pl-10 text-base"
         />
@@ -140,30 +179,47 @@ export default function LocalisationSelector({
                 );
               })
             ) : (
-              <div className="px-4 py-3 text-sm text-gray-500">
-                Aucun résultat. Utilisez « Autre localisation » plus bas.
-              </div>
+              onAutreLocalisationChange ? (
+                <button
+                  type="button"
+                  onClick={addAutreLocalisation}
+                  className="flex items-center gap-2 w-full px-4 py-3 text-left hover:bg-olive-50"
+                >
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-olive-600 text-white text-lg leading-none shrink-0">+</span>
+                  <span className="text-sm text-gray-700">
+                    Aucun résultat. <span className="font-medium text-olive-800">Ajouter « {searchTerm.trim()} »</span> comme nouvelle localisation ?
+                  </span>
+                </button>
+              ) : (
+                <div className="px-4 py-3 text-sm text-gray-500">
+                  Aucun résultat pour « {searchTerm.trim()} ».
+                </div>
+              )
             )}
           </div>
         )}
       </div>
 
       {/* Sélections actuelles */}
-      {selectedLocalisations.length > 0 && (
+      {totalSelected > 0 && (
         <div className="bg-olive-50 border border-olive-200 rounded-lg p-3">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-olive-800">
-              {selectedLocalisations.length} zone{selectedLocalisations.length > 1 ? 's' : ''} sélectionnée{selectedLocalisations.length > 1 ? 's' : ''}
+              {totalSelected} zone{totalSelected > 1 ? 's' : ''} sélectionnée{totalSelected > 1 ? 's' : ''}
             </span>
             <button
               type="button"
-              onClick={() => onChange([])}
+              onClick={() => {
+                onChange([]);
+                onAutreLocalisationChange?.('');
+              }}
               className="text-xs text-olive-700 hover:text-olive-900 underline"
             >
               Tout effacer
             </button>
           </div>
           <div className="flex flex-wrap gap-2">
+            {/* Zones listées */}
             {selectedLocalisations.map(slug => {
               const loc = TOUTES_LOCALISATIONS.find(l => l.slug === slug);
               if (!loc) return null;
@@ -186,6 +242,26 @@ export default function LocalisationSelector({
                 </span>
               );
             })}
+            {/* Localisations libres (non listées) */}
+            {autresLocalisations.map(value => (
+              <span
+                key={`autre-${value}`}
+                className="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-dashed border-olive-400 text-olive-800 rounded-full text-sm"
+              >
+                {value}
+                <span className="text-[10px] uppercase tracking-wide text-olive-500 font-semibold">nouveau</span>
+                <button
+                  type="button"
+                  onClick={() => removeAutreLocalisation(value)}
+                  className="hover:text-olive-900"
+                  aria-label={`Retirer ${value}`}
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+            ))}
           </div>
         </div>
       )}
@@ -254,22 +330,6 @@ export default function LocalisationSelector({
           })}
         </div>
       </div>
-
-      {/* Autre localisation */}
-      {onAutreLocalisationChange && (
-        <div>
-          <label className="block text-sm text-gray-700 mb-2">
-            Autre localisation (si non listée)
-          </label>
-          <input
-            type="text"
-            value={autreLocalisation}
-            onChange={(e) => onAutreLocalisationChange(e.target.value)}
-            placeholder="Ex: Saint-Jory, Montastruc, Verfeil..."
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-olive-500"
-          />
-        </div>
-      )}
     </div>
   );
 }

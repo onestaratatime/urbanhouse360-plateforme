@@ -53,8 +53,11 @@ export default function InscriptionPage() {
   const validateForm = () => {
     const errors: Record<string, string> = {};
 
-    if (!formData.quartiers || formData.quartiers.length === 0) {
-      errors.quartiers = 'Veuillez sélectionner au moins un quartier';
+    const aLocalisation =
+      (formData.quartiers && formData.quartiers.length > 0) ||
+      (formData.autre_localisation && formData.autre_localisation.trim() !== '');
+    if (!aLocalisation) {
+      errors.quartiers = 'Veuillez sélectionner ou ajouter au moins une localisation';
     }
 
     if (!formData.types_bien || formData.types_bien.length === 0) {
@@ -122,7 +125,10 @@ export default function InscriptionPage() {
   const canGoToNextStep = () => {
     switch (step) {
       case 1:
-        return formData.quartiers.length > 0;
+        return (
+          formData.quartiers.length > 0 ||
+          (formData.autre_localisation?.trim() ?? '') !== ''
+        );
       case 2:
         return true; // Profil selection is optional, can be skipped
       case 3:
@@ -199,19 +205,6 @@ export default function InscriptionPage() {
                 {fieldErrors.quartiers && (
                   <p className="mt-2 text-sm text-red-600">⚠️ {fieldErrors.quartiers}</p>
                 )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Précisions (rue, secteur précis...) — optionnel
-                </label>
-                <input
-                  type="text"
-                  value={formData.precision_localisation}
-                  onChange={e => setFormData({ ...formData, precision_localisation: e.target.value })}
-                  className="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-olive-500 focus:border-transparent"
-                  placeholder="Ex: Proche métro, secteur calme..."
-                />
               </div>
             </div>
           )}

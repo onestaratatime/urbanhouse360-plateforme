@@ -14,9 +14,12 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!data.quartiers || data.quartiers.length === 0) {
+    const aLocalisation =
+      (data.quartiers && data.quartiers.length > 0) ||
+      (data.autre_localisation && data.autre_localisation.trim() !== '');
+    if (!aLocalisation) {
       return NextResponse.json(
-        { error: 'Au moins un quartier doit être sélectionné' },
+        { error: 'Au moins une localisation doit être sélectionnée ou ajoutée' },
         { status: 400 }
       );
     }
@@ -46,7 +49,7 @@ export async function POST(request: Request) {
         telephone: data.telephone,
         consentement_contact: data.consentement_contact,
         quartiers: data.quartiers,
-        precision_localisation: data.precision_localisation || null,
+        autre_localisation: data.autre_localisation || null,
         type_projet: data.type_projet,
         timing: data.timing,
         types_bien: data.types_bien,
